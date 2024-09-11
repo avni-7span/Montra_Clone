@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "651928142648",
+    "project_id": "montra-clone-c50aa",
+    "storage_bucket": "montra-clone-c50aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651928142648:android:3d53ef36241de1c3e337cd",
+        "android_client_info": {
+          "package_name": "com.example.montra_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9MoM8KGbxpgv5qkYBgF2FW4yhWeWp8mM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
