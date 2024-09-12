@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:montra_clone/core/routes/router.gr.dart';
+import 'package:montra_clone/core/routes/guards/auth_guard.dart';
+import 'package:montra_clone/core/routes/router/router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends RootStackRouter {
@@ -13,5 +14,12 @@ class AppRouter extends RootStackRouter {
 
         /// onboarding
         AutoRoute(page: OnboardingRoute.page),
+        AutoRoute(page: VerificationInfoRoute.page),
+
+        /// Credential recover
+        AutoRoute(page: ForgotPasswordRoute.page),
+
+        /// Home
+        AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
       ];
 }

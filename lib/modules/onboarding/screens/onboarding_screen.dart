@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/core/routes/router/router.gr.dart';
+import 'package:montra_clone/core/widgets/button_title.dart';
 import 'package:montra_clone/core/widgets/custom_elevated_button.dart';
 import 'package:montra_clone/modules/onboarding/cubit/onboarding_cubit.dart';
 import 'package:montra_clone/modules/onboarding/models/onboarding_content.dart';
@@ -27,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.instance.light100,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -64,15 +67,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             const SizedBox(height: 25),
             CustomElevatedButton(
-              buttonLabel: 'Sign up',
+              buttonLabel: const ButtonTitle(
+                isPurple: true,
+                buttonLabel: 'Sign Up',
+              ),
               isPurple: true,
-              onPressed: () {},
+              onPressed: () async {
+                await context.router.replace(const SignupRoute());
+              },
             ),
             const SizedBox(height: 20),
             CustomElevatedButton(
-              buttonLabel: 'Login',
+              buttonLabel: const ButtonTitle(
+                isPurple: false,
+                buttonLabel: 'Login',
+              ),
               isPurple: false,
-              onPressed: () {},
+              onPressed: () async {
+                await context.router.replace(const LoginRoute());
+              },
             ),
             const SizedBox(height: 20),
           ],

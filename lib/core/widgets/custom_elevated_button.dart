@@ -9,7 +9,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  final String buttonLabel;
+  final Widget buttonLabel;
   final bool isPurple;
   final VoidCallback onPressed;
 
@@ -30,13 +30,7 @@ class CustomElevatedButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          buttonLabel,
-          style: TextStyle(
-            fontSize: 18,
-            color: isPurple ? Colors.white : AppColors.instance.violet100,
-          ),
-        ),
+        child: buttonLabel,
       ),
     );
   }
