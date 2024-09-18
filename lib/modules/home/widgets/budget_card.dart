@@ -56,54 +56,54 @@ class BudgetCard extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    category,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  category,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
                   ),
-                  Text(
-                    description.length <= 10
-                        ? description
-                        : description.substring(0, 10),
-                    overflow:
-                        description.length > 10 ? TextOverflow.ellipsis : null,
-                    style: const TextStyle(fontSize: 16),
-                  )
-                ],
-              ),
-              const SizedBox(width: 30),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      isExpense ? '-\$$amount' : '+\$$amount',
-                      style: TextStyle(
-                        color: isExpense
-                            ? AppColors.instance.red100
-                            : AppColors.instance.green100,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      createdAt,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
                 ),
-              ),
-            ],
+                const Text(
+                  'description',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 10, left: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  isExpense ? '-\$$amount' : '+\$$amount',
+                  style: TextStyle(
+                    color: isExpense
+                        ? AppColors.instance.red100
+                        : AppColors.instance.green100,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  createdAt,
+                  style: const TextStyle(
+                    fontSize: 13,
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),

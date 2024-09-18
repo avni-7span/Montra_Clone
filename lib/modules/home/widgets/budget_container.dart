@@ -10,9 +10,9 @@ class BudgetContainer extends StatelessWidget {
     required this.expense,
   });
 
-  final int totalBudget;
-  final int income;
-  final int expense;
+  final double totalBudget;
+  final double income;
+  final double expense;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,9 @@ class BudgetContainer extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${totalBudget.toString()}',
+                totalBudget > 0
+                    ? '\$${totalBudget.toString()}'
+                    : '- \$${totalBudget.abs().toString()}',
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

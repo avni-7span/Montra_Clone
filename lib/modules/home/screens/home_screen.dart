@@ -13,7 +13,9 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc()..add(const FetchTransactionList()),
+      create: (context) => HomeBloc()
+        ..add(const FetchTransactionList())
+        ..add(const FetchAmountDetails()),
       child: this,
     );
   }
@@ -30,26 +32,30 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
         return Scaffold(
           body: Column(
             children: [
-              const BudgetContainer(
-                totalBudget: 0,
-                income: 0,
-                expense: 0,
+              BudgetContainer(
+                totalBudget: state.totalAccountBalance,
+                income: state.totalIncome,
+                expense: state.totalExpense,
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  itemCount: state.transactionList.length,
-                  itemBuilder: (context, index) {
-                    return BudgetCard(
-                      category: state.transactionList[index].category,
-                      isExpense: state.transactionList[index].isExpense,
-                      amount: state.transactionList[index].transactionAmount,
-                      description: state.transactionList[index].description,
-                      createdAt: state.transactionList[index].createdAt,
-                    );
-                  },
-                ),
+                child: state.status == HomeStateStatus.transactionDataLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        itemCount: state.transactionList.length,
+                        itemBuilder: (context, index) {
+                          return BudgetCard(
+                            category: state.transactionList[index].category,
+                            isExpense: state.transactionList[index].isExpense,
+                            amount:
+                                state.transactionList[index].transactionAmount,
+                            description:
+                                state.transactionList[index].description,
+                            createdAt: state.transactionList[index].createdAt,
+                          );
+                        },
+                      ),
               ),
             ],
           ),
