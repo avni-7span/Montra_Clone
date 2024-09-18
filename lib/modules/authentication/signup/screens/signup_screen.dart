@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/app/constants.dart';
+import 'package:montra_clone/app/constants_strings.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/core/validators/email_validator.dart';
 import 'package:montra_clone/core/validators/password_validator.dart';
@@ -52,7 +52,7 @@ class SignupScreen extends StatelessWidget implements AutoRouteWrapper {
           context.router.replace(const VerificationInfoRoute());
         } else if (state.status == SignUpStateStatus.signupWithGoogleDone) {
           /// TODO : replaceALL
-          context.router.replaceAll([const HomeRoute()]);
+          context.router.replaceAll([const BottomNavigationBarRoute()]);
         }
       },
       child: Scaffold(

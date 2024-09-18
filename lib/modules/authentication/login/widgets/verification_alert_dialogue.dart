@@ -23,14 +23,14 @@ class VerificationAlertDialogue extends StatelessWidget {
           },
           child: Text(
             'Resend email',
-            style: TextStyle(color: AppColors.instance.violet100),
+            style: TextStyle(color: AppColors.instance.primary),
           ),
         ),
         TextButton(
           onPressed: onClosedTap,
           child: Text(
             'Okay',
-            style: TextStyle(color: AppColors.instance.violet100),
+            style: TextStyle(color: AppColors.instance.primary),
           ),
         )
       ],

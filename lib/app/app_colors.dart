@@ -6,7 +6,7 @@ class AppColors {
   factory AppColors() => instance;
   AppColors.internal();
 
-  final violet100 = const Color(0xff7F3DFF);
+  final primary = const Color(0xff7F3DFF);
   final violet80 = const Color(0xff8F57FF);
   final violet60 = const Color(0xffB18AFF);
   final violet40 = const Color(0xffD3BDFF);

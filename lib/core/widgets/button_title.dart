@@ -17,7 +17,7 @@ class ButtonTitle extends StatelessWidget {
       buttonLabel,
       style: TextStyle(
         fontSize: 18,
-        color: isPurple ? Colors.white : AppColors.instance.violet100,
+        color: isPurple ? Colors.white : AppColors.instance.primary,
       ),
     );
   }

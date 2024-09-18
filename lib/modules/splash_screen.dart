@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @RoutePage()
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     } else {
       if (mounted) {
-        context.router.replace(const HomeRoute());
+        context.router.replace(const BottomNavigationBarRoute());
       }
     }
   }
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.instance.violet100,
+      backgroundColor: AppColors.instance.primary,
       body: const Center(
         child: Text(
           'Montra',

@@ -17,7 +17,7 @@ class PageSlideIndicator extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
           color: isCurrentIndex
-              ? AppColors.instance.violet100
+              ? AppColors.instance.primary
               : AppColors.instance.violet20,
           borderRadius: BorderRadius.circular(10)),
     );

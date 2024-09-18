@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/widgets/button_title.dart';
 import 'package:montra_clone/core/widgets/custom_elevated_button.dart';
 import 'package:montra_clone/modules/onboarding/cubit/onboarding_cubit.dart';

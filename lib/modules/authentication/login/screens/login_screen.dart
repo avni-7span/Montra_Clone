@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/core/validators/email_validator.dart';
 import 'package:montra_clone/core/widgets/button_title.dart';
@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state.status == LoginStateStatus.isNotVerified) {
           await showUserVerificationAlertDialogue();
         } else if (state.status == LoginStateStatus.success) {
-          await context.router.replaceAll([const HomeRoute()]);
+          await context.router.replaceAll([const BottomNavigationBarRoute()]);
         } else if (state.status == LoginStateStatus.emailSent) {
           return showTheSnackBar(
             message: 'We have sent you a verification email,Please check inbox',

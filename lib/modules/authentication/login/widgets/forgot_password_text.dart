@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 
 class ForgotPasswordText extends StatelessWidget {
   const ForgotPasswordText({super.key});
@@ -18,7 +18,7 @@ class ForgotPasswordText extends StatelessWidget {
         'Forgot Password ?',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: AppColors.instance.violet100,
+          color: AppColors.instance.primary,
           fontSize: 18,
         ),
       ),

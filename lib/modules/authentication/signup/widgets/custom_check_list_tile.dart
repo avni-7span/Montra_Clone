@@ -43,7 +43,7 @@ class _CustomCheckListTileState extends State<CustomCheckListTile> {
                   recognizer: TapGestureRecognizer()..onTap = () {},
                   text: ' Terms of Service and Privacy Policy',
                   style: TextStyle(
-                    color: AppColors.instance.violet100,
+                    color: AppColors.instance.primary,
                   ),
                 ),
               ],

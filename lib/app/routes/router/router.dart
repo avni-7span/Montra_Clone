@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:montra_clone/core/routes/guards/auth_guard.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
+import 'package:montra_clone/app/routes/guards/auth_guard.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends RootStackRouter {
@@ -19,7 +19,17 @@ class AppRouter extends RootStackRouter {
         /// Credential recover
         AutoRoute(page: ForgotPasswordRoute.page),
 
-        /// Home
-        AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
+        /// Bottom Navigation Bar
+        AutoRoute(
+          page: BottomNavigationBarRoute.page,
+          children: [
+            AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
+            AutoRoute(page: TransactionRoute.page),
+            AutoRoute(page: BudgetRoute.page),
+            AutoRoute(page: ProfileRoute.page),
+          ],
+        ),
+
+        AutoRoute(page: ExpenseTrackerRoute.page, path: '/:isExpense'),
       ];
 }

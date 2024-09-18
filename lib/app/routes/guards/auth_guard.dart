@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
-import 'package:montra_clone/core/routes/router/router.gr.dart';
 
 class AuthGuard extends AutoRouteGuard {
   @override

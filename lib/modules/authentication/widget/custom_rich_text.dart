@@ -31,7 +31,7 @@ class CustomRichText extends StatelessWidget {
               text: subtitle,
               style: TextStyle(
                   decoration: TextDecoration.underline,
-                  color: AppColors.instance.violet100,
+                  color: AppColors.instance.primary,
                   fontSize: 20),
             ),
           ],

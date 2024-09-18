@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:montra_clone/core/repository/authentication_repository.dart';
 import 'package:montra_clone/core/validators/email_validator.dart';
 import 'package:montra_clone/core/validators/empty_field_validator.dart';
 import 'package:montra_clone/core/validators/password_validator.dart';
+import 'package:montra_clone/modules/authentication/models/user_model.dart';
 
 part 'signup_event.dart';
 
@@ -29,6 +31,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   final AuthenticationRepository _authenticationRepository;
+  final fireStoreInstance = FirebaseFirestore.instance;
 
   void _checkEmail(
     EmailFieldChangeEvent event,
@@ -91,11 +94,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     if (state.isValid && state.isChecked) {
       try {
         emit(state.copyWith(status: SignUpStateStatus.loading));
-        await _authenticationRepository.signUpWithEmailPassword(
+        final credential =
+            await _authenticationRepository.signUpWithEmailPassword(
           email: email.value.trim(),
           password: password.value,
         );
+
         await _authenticationRepository.sendVerificationEmail();
+
+        createUserCollection(credential.user?.uid ?? '');
+
         emit(state.copyWith(status: SignUpStateStatus.success));
       } on FirebaseException catch (e) {
         emit(
@@ -143,7 +151,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(state.copyWith(
           status: SignUpStateStatus.failure,
           error: 'Sign up with Google failed,! Please try again later'));
-      print('error aavi $e');
     }
+  }
+
+  Future<void> createUserCollection(String userUID) async {
+    final UserModel user =
+        UserModel(email: state.email.value, name: state.name.value);
+    await fireStoreInstance
+        .collection('users')
+        .doc(userUID)
+        .set(UserModel.toFireStore(user));
   }
 }
