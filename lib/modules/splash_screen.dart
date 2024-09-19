@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,11 +39,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.instance.primary,
-      body: const Center(
-        child: Text(
-          'Montra',
-          style: TextStyle(fontSize: 30, color: Colors.white),
+      backgroundColor: AppColors.instance.violet80,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * (0.3),
+            ),
+            Image.asset(
+              appIcon,
+              height: 150,
+              width: 150,
+            ),
+            const Spacer(),
+            const Text(
+              'Montra',
+              style: TextStyle(fontSize: 40, color: Colors.white),
+            ),
+            const SizedBox(height: 50),
+          ],
         ),
       ),
     );

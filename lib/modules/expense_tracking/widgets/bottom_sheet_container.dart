@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/core/widgets/decorated_line.dart';
 import 'package:montra_clone/modules/expense_tracking/widgets/trasaction_button.dart';
 
 class BottomSheetContainer extends StatelessWidget {
@@ -19,7 +20,7 @@ class BottomSheetContainer extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _DecoratedLine(onTap: () {
+        DecoratedLine(onTap: () {
           onBackTap();
         }),
         SizedBox(
@@ -47,25 +48,6 @@ class BottomSheetContainer extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _DecoratedLine extends StatelessWidget {
-  const _DecoratedLine({super.key, required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(top: 10),
-        height: 8,
-        width: 60,
-        color: AppColors.instance.violet40,
-      ),
     );
   }
 }

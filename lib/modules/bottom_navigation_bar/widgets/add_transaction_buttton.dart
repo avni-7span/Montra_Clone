@@ -44,12 +44,13 @@ class _AddTransactionButtonState extends State<AddTransactionButton> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => _showBottomSheet(screenContext: context),
       child: Container(
         height: 60,
         width: 60,
-        margin: const EdgeInsets.all(40),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: AppColors.instance.primary,
           borderRadius: BorderRadius.circular(30),

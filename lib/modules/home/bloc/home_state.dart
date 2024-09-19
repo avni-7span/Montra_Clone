@@ -9,14 +9,14 @@ enum HomeStateStatus {
 }
 
 class HomeState extends Equatable {
-  const HomeState({
-    this.status = HomeStateStatus.initial,
-    this.transactionList = const [],
-    this.errorMessage = '',
-    this.totalExpense = 0.0,
-    this.totalIncome = 0.0,
-    this.totalAccountBalance = 0.0,
-  });
+  const HomeState(
+      {this.status = HomeStateStatus.initial,
+      this.transactionList = const [],
+      this.errorMessage = '',
+      this.totalExpense = 0.0,
+      this.totalIncome = 0.0,
+      this.totalAccountBalance = 0.0,
+      this.filterName = 'Today'});
 
   final HomeStateStatus status;
   final List<TransactionModel> transactionList;
@@ -24,6 +24,7 @@ class HomeState extends Equatable {
   final double totalExpense;
   final String errorMessage;
   final double totalAccountBalance;
+  final String filterName;
 
   @override
   List<Object?> get props => [
@@ -33,6 +34,7 @@ class HomeState extends Equatable {
         totalExpense,
         totalIncome,
         totalAccountBalance,
+        filterName,
       ];
 
   HomeState copyWith({
@@ -42,6 +44,7 @@ class HomeState extends Equatable {
     double? totalExpense,
     String? errorMessage,
     double? totalAccountBalance,
+    String? filterName,
   }) {
     return HomeState(
       status: status ?? this.status,
@@ -50,6 +53,7 @@ class HomeState extends Equatable {
       totalExpense: totalExpense ?? this.totalExpense,
       errorMessage: errorMessage ?? this.errorMessage,
       totalAccountBalance: totalAccountBalance ?? this.totalAccountBalance,
+      filterName: filterName ?? this.filterName,
     );
   }
 }

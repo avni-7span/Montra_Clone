@@ -14,6 +14,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(const HomeState()) {
     on<FetchTransactionList>(_fetchTransactionList);
     on<FetchAmountDetails>(_fetchAmountDetails);
+    on<SetFilterEvent>(_setFilter);
+    on<FetchDataByMonth>(_fetchDataByMonth);
+    on<FetchDataByYear>(_fetchDataByYear);
+    on<FetchDataByWeek>(_fetchDataByWeek);
   }
 
   final fireStoreInstance = FirebaseFirestore.instance;
@@ -102,4 +106,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       );
     }
   }
+
+  void _setFilter(
+    SetFilterEvent event,
+    Emitter<HomeState> emit,
+  ) {
+    emit(state.copyWith(filterName: event.filterName));
+  }
+
+  Future<void> _fetchDataByMonth(
+    FetchDataByMonth event,
+    Emitter<HomeState> emit,
+  ) async {}
+
+  Future<void> _fetchDataByYear(
+    FetchDataByYear event,
+    Emitter<HomeState> emit,
+  ) async {}
+
+  Future<void> _fetchDataByWeek(
+    FetchDataByWeek event,
+    Emitter<HomeState> emit,
+  ) async {}
 }

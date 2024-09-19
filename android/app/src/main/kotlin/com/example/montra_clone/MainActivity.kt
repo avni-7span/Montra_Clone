@@ -1,4 +1,4 @@
-package com.example.montra_clone
+package com.example.montra
 
 import io.flutter.embedding.android.FlutterActivity
 

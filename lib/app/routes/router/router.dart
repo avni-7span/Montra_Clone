@@ -30,6 +30,12 @@ class AppRouter extends RootStackRouter {
           ],
         ),
 
+        /// SubRoutes of home route
         AutoRoute(page: ExpenseTrackerRoute.page, path: '/:isExpense'),
+
+        /// SubRoutes of profile route
+        AutoRoute(page: SettingRoute.page),
+        AutoRoute(page: CurrencyRoute.page),
+        AutoRoute(page: LanguageRoute.page),
       ];
 }

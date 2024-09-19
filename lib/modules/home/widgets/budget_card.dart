@@ -70,11 +70,11 @@ class BudgetCard extends StatelessWidget {
                     fontSize: 15,
                   ),
                 ),
-                const Text(
-                  'description',
+                Text(
+                  description,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 15,
                   ),
                 )
@@ -94,6 +94,7 @@ class BudgetCard extends StatelessWidget {
                         ? AppColors.instance.red100
                         : AppColors.instance.green100,
                     fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(

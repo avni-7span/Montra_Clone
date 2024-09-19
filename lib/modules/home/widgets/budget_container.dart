@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/modules/home/widgets/price_card.dart';
 
 class BudgetContainer extends StatelessWidget {
@@ -41,20 +42,15 @@ class BudgetContainer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      maxRadius: 30,
-                      child: Icon(
-                        Icons.image,
-                        size: 30,
-                      ),
-                    ),
+                  Image.asset(
+                    appLogo,
+                    height: 70,
+                    width: 140,
                   ),
                   Icon(
                     Icons.notifications,
-                    size: 40,
-                    color: AppColors.instance.primary,
+                    size: 35,
+                    color: AppColors.instance.violet80,
                   )
                 ],
               ),

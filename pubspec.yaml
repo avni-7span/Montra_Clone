@@ -60,6 +60,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   auto_route_generator:
   build_runner:
+  flutter_launcher_icons: '0.13.1'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,6 +79,8 @@ flutter:
     - assets/icons/
     - assets/icons/category_icons/
     - assets/icons/bottom_navigation_icons/
+    - assets/icons/profile_icons/
+    - assets/icons/app_logo/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,3 +107,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/icons/app_logo/montra_logo.png"
+  min_sdk_android: 23

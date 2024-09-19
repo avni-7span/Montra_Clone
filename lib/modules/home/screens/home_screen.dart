@@ -5,9 +5,10 @@ import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/modules/home/bloc/home_bloc.dart';
 import 'package:montra_clone/modules/home/widgets/budget_card.dart';
 import 'package:montra_clone/modules/home/widgets/budget_container.dart';
+import 'package:montra_clone/modules/home/widgets/filter_row.dart';
 
 @RoutePage()
-class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
+class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
   const HomeScreen({super.key});
 
   @override
@@ -18,6 +19,18 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
         ..add(const FetchAmountDetails()),
       child: this,
     );
+  }
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeBloc>().add(const FetchAmountDetails());
+    context.read<HomeBloc>().add(const FetchTransactionList());
   }
 
   @override
@@ -37,7 +50,7 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
                 income: state.totalIncome,
                 expense: state.totalExpense,
               ),
-              const SizedBox(height: 20),
+              const FilterRow(),
               Expanded(
                 child: state.status == HomeStateStatus.transactionDataLoading
                     ? const Center(child: CircularProgressIndicator())
