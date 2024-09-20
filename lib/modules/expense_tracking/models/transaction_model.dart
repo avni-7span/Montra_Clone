@@ -13,7 +13,7 @@ class TransactionModel extends Equatable {
   final String transactionId;
   final String transactionAmount;
   final String description;
-  final String createdAt;
+  final int createdAt;
   final String category;
   final bool isExpense;
 

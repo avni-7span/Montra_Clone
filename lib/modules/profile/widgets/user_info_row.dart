@@ -8,9 +8,11 @@ class UserInfoRow extends StatelessWidget {
     required this.userName,
     required this.onEditIconTap,
     required this.onImageTap,
+    required this.userEmail,
   });
 
   final String userName;
+  final String userEmail;
   final VoidCallback onEditIconTap;
   final VoidCallback onImageTap;
 
@@ -24,20 +26,37 @@ class UserInfoRow extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            userName,
-            style: TextStyle(
-              color: AppColors.instance.dark100,
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                userName,
+                style: TextStyle(
+                  color: AppColors.instance.dark100,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                userEmail,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: AppColors.instance.dark25,
+                  fontSize: 15,
+                ),
+              )
+            ],
           ),
         ),
-        IconButton(
-          onPressed: onEditIconTap,
-          icon: Image.asset(
-            editIconPath,
-            color: AppColors.instance.dark100,
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: IconButton(
+            onPressed: onEditIconTap,
+            icon: Image.asset(
+              editIconPath,
+              color: AppColors.instance.dark100,
+            ),
           ),
         )
       ],

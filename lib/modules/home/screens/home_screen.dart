@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:montra_clone/core/utils/fire_store_queries.dart';
+import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/modules/home/bloc/home_bloc.dart';
 import 'package:montra_clone/modules/home/widgets/budget_card.dart';
 import 'package:montra_clone/modules/home/widgets/budget_container.dart';
 import 'package:montra_clone/modules/home/widgets/filter_row.dart';
+import 'package:montra_clone/modules/home/widgets/view_all_data_raw.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -15,7 +18,7 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeBloc()
-        ..add(const FetchTransactionList())
+        ..add(const FetchDataOfCurrentDay())
         ..add(const FetchAmountDetails()),
       child: this,
     );
@@ -30,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     context.read<HomeBloc>().add(const FetchAmountDetails());
-    context.read<HomeBloc>().add(const FetchTransactionList());
+    context.read<HomeBloc>().add(const FetchDataOfCurrentDay());
   }
 
   @override
@@ -51,24 +54,55 @@ class _HomeScreenState extends State<HomeScreen> {
                 expense: state.totalExpense,
               ),
               const FilterRow(),
+              ViewAllDataRaw(
+                onViewAppTap: () =>
+                    context.router.push(const ViewAllDataRoute()),
+              ),
               Expanded(
                 child: state.status == HomeStateStatus.transactionDataLoading
                     ? const Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        itemCount: state.transactionList.length,
-                        itemBuilder: (context, index) {
-                          return BudgetCard(
-                            category: state.transactionList[index].category,
-                            isExpense: state.transactionList[index].isExpense,
-                            amount:
-                                state.transactionList[index].transactionAmount,
-                            description:
-                                state.transactionList[index].description,
-                            createdAt: state.transactionList[index].createdAt,
-                          );
-                        },
-                      ),
+                    : state.status == HomeStateStatus.success
+                        ? state.transactionList.isEmpty
+                            ? Center(
+                                child: Text(state.filterName == 'Today'
+                                    ? 'You have not added any transactions today'
+                                    : state.filterName == 'Week'
+                                        ? 'No transactions in this week'
+                                        : state.filterName == 'Month'
+                                            ? 'No transactions in this month'
+                                            : 'No transactions in this Year'),
+                              )
+                            : ListView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                itemCount: state.transactionList.length,
+                                itemBuilder: (context, index) {
+                                  return BudgetCard(
+                                    category:
+                                        state.transactionList[index].category,
+                                    isExpense:
+                                        state.transactionList[index].isExpense,
+                                    amount: state.transactionList[index]
+                                        .transactionAmount,
+                                    description: state
+                                        .transactionList[index].description,
+                                    createdAt: FireStoreQueries.instance
+                                        .getFormatedDate(state
+                                            .transactionList[index].createdAt),
+                                    onCardTap: () {
+                                      context.router.push(
+                                        ExpenseTrackerRoute(
+                                          isExpense: state
+                                              .transactionList[index].isExpense,
+                                          transactionModel:
+                                              state.transactionList[index],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                        : const Text('Could not load transactions'),
               ),
             ],
           ),

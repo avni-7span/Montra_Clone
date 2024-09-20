@@ -7,15 +7,18 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     required this.errorWidget,
     required this.onChanged,
+    required this.initialValue,
   });
 
   final String hintText;
   final Widget? errorWidget;
   final Function(String) onChanged;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       onChanged: (value) => onChanged(value),
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),

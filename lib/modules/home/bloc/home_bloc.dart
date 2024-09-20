@@ -1,9 +1,8 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:montra_clone/core/repository/authentication_repository.dart';
+import 'package:montra_clone/core/utils/fire_store_queries.dart';
 import 'package:montra_clone/modules/expense_tracking/models/transaction_model.dart';
 
 part 'home_event.dart';
@@ -12,34 +11,24 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(const HomeState()) {
-    on<FetchTransactionList>(_fetchTransactionList);
+    on<FetchAllTransactionData>(_fetchAllTransactionData);
     on<FetchAmountDetails>(_fetchAmountDetails);
     on<SetFilterEvent>(_setFilter);
     on<FetchDataByMonth>(_fetchDataByMonth);
     on<FetchDataByYear>(_fetchDataByYear);
     on<FetchDataByWeek>(_fetchDataByWeek);
+    on<FetchDataOfCurrentDay>(_fetchDataOfCurrentDay);
   }
 
-  final fireStoreInstance = FirebaseFirestore.instance;
-  final currentUserId = AuthenticationRepository.instance.currentUser?.uid;
-
-  Future<QuerySnapshot<Map<String, dynamic>>>
-      getQuerySnapshotOfTransactionData() async {
-    final transactionCollectionRef = fireStoreInstance
-        .collection('users')
-        .doc(currentUserId)
-        .collection('transaction');
-    final querySnapshot = await transactionCollectionRef.get();
-    return querySnapshot;
-  }
-
-  Future<void> _fetchTransactionList(
-    FetchTransactionList event,
+  Future<void> _fetchAllTransactionData(
+    FetchAllTransactionData event,
     Emitter<HomeState> emit,
   ) async {
     try {
       emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
-      final querySnapshot = await getQuerySnapshotOfTransactionData();
+      final collectionReference =
+          await FireStoreQueries.instance.getCollectionReference();
+      final querySnapshot = await collectionReference.get();
       final transactionList = querySnapshot.docs
           .map(
             (snapshot) => TransactionModel.fromFireStore(
@@ -47,8 +36,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             ),
           )
           .toList();
+      transactionList.sort(
+        (a, b) => a.createdAt.compareTo(b.createdAt),
+      );
+      final list = transactionList.reversed.toList();
       emit(state.copyWith(
-          status: HomeStateStatus.success, transactionList: transactionList));
+          status: HomeStateStatus.success, transactionList: list));
     } catch (e) {
       emit(state.copyWith(
           status: HomeStateStatus.failure,
@@ -62,7 +55,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       emit(state.copyWith(status: HomeStateStatus.amountLoading));
-      final querySnapshot = await getQuerySnapshotOfTransactionData();
+      final collectionReference =
+          await FireStoreQueries.instance.getCollectionReference();
+      final querySnapshot = await collectionReference.get();
       final List<double> incomeList = [];
       final List<double> expenseList = [];
       for (var e in querySnapshot.docs) {
@@ -114,18 +109,127 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(filterName: event.filterName));
   }
 
-  Future<void> _fetchDataByMonth(
-    FetchDataByMonth event,
+  /// today's data
+  Future<void> _fetchDataOfCurrentDay(
+    FetchDataOfCurrentDay event,
     Emitter<HomeState> emit,
-  ) async {}
+  ) async {
+    try {
+      emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
+      final docSnapShot = await FireStoreQueries.instance.getTodayData();
 
-  Future<void> _fetchDataByYear(
-    FetchDataByYear event,
-    Emitter<HomeState> emit,
-  ) async {}
+      final listTwo = docSnapShot.$2.map(
+        (e) {
+          return TransactionModel.fromFireStore(e.data());
+        },
+      ).toList();
+      final listOne = docSnapShot.$1.map(
+        (e) {
+          return TransactionModel.fromFireStore(e.data());
+        },
+      ).toList();
+      final List<TransactionModel> list = [];
+      for (var e in listOne) {
+        if (listTwo.contains(e)) {
+          list.add(e);
+        }
+      }
+      list.sort(
+        (a, b) => a.createdAt.compareTo(b.createdAt),
+      );
+      final dataList = list.reversed.toList();
+      emit(state.copyWith(
+          status: HomeStateStatus.success, transactionList: dataList));
+    } catch (e) {
+      emit(
+        state.copyWith(
+            status: HomeStateStatus.failure,
+            errorMessage: 'Something went wrong'),
+      );
+    }
+  }
 
+  /// data of this week
   Future<void> _fetchDataByWeek(
     FetchDataByWeek event,
     Emitter<HomeState> emit,
-  ) async {}
+  ) async {
+    try {
+      emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
+      final querySnapshot = await FireStoreQueries.instance.getThisWeekData();
+      final list = querySnapshot
+          .map(
+            (docSnapshot) => TransactionModel.fromFireStore(
+              docSnapshot.data(),
+            ),
+          )
+          .toList();
+      list.sort(
+        (a, b) => a.createdAt.compareTo(b.createdAt),
+      );
+      final dataList = list.reversed.toList();
+      emit(state.copyWith(
+          status: HomeStateStatus.success, transactionList: dataList));
+    } catch (e) {
+      emit(state.copyWith(
+          status: HomeStateStatus.failure,
+          errorMessage: 'Something went wrong'));
+    }
+  }
+
+  /// data of this month
+  Future<void> _fetchDataByMonth(
+    FetchDataByMonth event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
+      final querySnapshot = await FireStoreQueries.instance.getThisMonthData();
+      final list = querySnapshot
+          .map(
+            (docSnapshot) => TransactionModel.fromFireStore(
+              docSnapshot.data(),
+            ),
+          )
+          .toList();
+      list.sort(
+        (a, b) => a.createdAt.compareTo(b.createdAt),
+      );
+      final dataList = list.reversed.toList();
+      emit(state.copyWith(
+          status: HomeStateStatus.success, transactionList: dataList));
+    } catch (e) {
+      emit(state.copyWith(
+          status: HomeStateStatus.failure,
+          errorMessage: 'Something went wrong'));
+    }
+  }
+
+  /// data of this year
+  Future<void> _fetchDataByYear(
+    FetchDataByYear event,
+    Emitter<HomeState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
+      final querySnapshot = await FireStoreQueries.instance.getThisYearData();
+      final list = querySnapshot
+          .map(
+            (docSnapshot) => TransactionModel.fromFireStore(
+              docSnapshot.data(),
+            ),
+          )
+          .toList();
+      list.sort(
+        (a, b) => a.createdAt.compareTo(b.createdAt),
+      );
+      final dataList = list.reversed.toList();
+      emit(state.copyWith(
+          status: HomeStateStatus.success, transactionList: dataList));
+    } catch (e) {
+      emit(state.copyWith(
+          status: HomeStateStatus.failure,
+          errorMessage: 'Something went wrong'));
+    }
+  }
 }

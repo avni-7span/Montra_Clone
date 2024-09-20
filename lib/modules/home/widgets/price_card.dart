@@ -51,7 +51,7 @@ class PriceCard extends StatelessWidget {
                 price,
                 style: TextStyle(
                   color: AppColors.instance.light100,
-                  fontSize: 25,
+                  fontSize: 23,
                 ),
               ),
             ],

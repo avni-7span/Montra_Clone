@@ -8,16 +8,19 @@ class AmountTextField extends StatelessWidget {
     super.key,
     required this.onChanged,
     required this.errorWidget,
+    required this.initialValue,
   });
 
   final Function(String) onChanged;
   final Widget? errorWidget;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 16),
       child: TextFormField(
+        initialValue: initialValue,
         style: textStyle,
         onChanged: (value) => onChanged(value),
         keyboardType: TextInputType.number,

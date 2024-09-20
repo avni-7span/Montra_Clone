@@ -4,8 +4,8 @@ abstract class HomeEvent extends Equatable {
   const HomeEvent();
 }
 
-class FetchTransactionList extends HomeEvent {
-  const FetchTransactionList();
+class FetchAllTransactionData extends HomeEvent {
+  const FetchAllTransactionData();
   @override
   List<Object?> get props => [];
 }
@@ -26,16 +26,25 @@ class SetFilterEvent extends HomeEvent {
 }
 
 class FetchDataByMonth extends HomeEvent {
+  const FetchDataByMonth();
   @override
   List<Object?> get props => [];
 }
 
 class FetchDataByYear extends HomeEvent {
+  const FetchDataByYear();
   @override
   List<Object?> get props => [];
 }
 
 class FetchDataByWeek extends HomeEvent {
+  const FetchDataByWeek();
+  @override
+  List<Object?> get props => [];
+}
+
+class FetchDataOfCurrentDay extends HomeEvent {
+  const FetchDataOfCurrentDay();
   @override
   List<Object?> get props => [];
 }

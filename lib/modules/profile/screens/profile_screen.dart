@@ -23,7 +23,7 @@ class ProfileScreen extends StatefulWidget implements AutoRouteWrapper {
       create: (context) => ProfileBloc(
         authenticationRepository:
             RepositoryProvider.of<AuthenticationRepository>(context),
-      ),
+      )..add(const FetchUserDetailsEvent()),
       child: this,
     );
   }
@@ -68,10 +68,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              UserInfoRow(
-                userName: 'Avni',
-                onEditIconTap: () {},
-                onImageTap: () {},
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  return UserInfoRow(
+                    userName: state.userName ?? 'Unknown',
+                    userEmail: state.userEmail ?? '',
+                    onEditIconTap: () {},
+                    onImageTap: () {},
+                  );
+                },
               ),
               const SizedBox(height: 30),
               CustomContainer(

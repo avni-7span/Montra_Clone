@@ -17,19 +17,22 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return isSelected
         ? Container(
+            width: 75,
             padding:
                 const EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 10),
             decoration: BoxDecoration(
               color: AppColors.instance.yellow20,
               borderRadius: const BorderRadius.all(
-                Radius.circular(15),
+                Radius.circular(18),
               ),
             ),
-            child: Text(
-              label,
-              style: TextStyle(
-                color: AppColors.instance.yellow100,
-                fontWeight: FontWeight.bold,
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: AppColors.instance.yellow100,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           )
@@ -37,7 +40,9 @@ class TextWidget extends StatelessWidget {
             onTap: onTap,
             child: Text(
               label,
-              style: TextStyle(color: AppColors.instance.dark25),
+              style: TextStyle(
+                color: AppColors.instance.dark25,
+              ),
             ),
           );
   }

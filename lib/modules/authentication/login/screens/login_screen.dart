@@ -113,6 +113,7 @@ class _EmailField extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return CustomTextField(
+          initialValue: null,
           hintText: 'Email',
           errorWidget: state.email.displayError == EmailValidationError.empty
               ? const ErrorText(error: 'Email is required')

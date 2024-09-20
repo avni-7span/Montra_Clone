@@ -1,6 +1,15 @@
 part of 'expense_tracker_bloc.dart';
 
-enum ExpenseTrackerStateStatus { initial, loading, failure, success }
+enum ExpenseTrackerStateStatus {
+  initial,
+  loading,
+  deleteDataLoading,
+  updateLoading,
+  failure,
+  success,
+  deleted,
+  updated,
+}
 
 class ExpenseTrackerState extends Equatable {
   const ExpenseTrackerState({

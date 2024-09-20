@@ -117,6 +117,7 @@ class _NameField extends StatelessWidget {
     return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return CustomTextField(
+          initialValue: null,
           hintText: 'Name',
           errorWidget: state.name.displayError != null
               ? const ErrorText(error: 'Name is required')
@@ -140,6 +141,7 @@ class _EmailField extends StatelessWidget {
     return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return CustomTextField(
+          initialValue: null,
           hintText: 'Email',
           errorWidget: state.email.displayError == EmailValidationError.empty
               ? const ErrorText(error: 'Email is required')

@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/modules/home/bloc/home_bloc.dart';
-import 'package:montra_clone/modules/home/widgets/TextWidget.dart';
+import 'package:montra_clone/modules/home/widgets/text_widget.dart';
 
 class FilterRow extends StatelessWidget implements AutoRouteWrapper {
   const FilterRow({super.key});
@@ -19,7 +18,7 @@ class FilterRow extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 10),
+      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 8, top: 8),
       padding: const EdgeInsets.only(left: 8, right: 8),
       height: 40,
       width: double.infinity,
@@ -30,36 +29,42 @@ class FilterRow extends StatelessWidget implements AutoRouteWrapper {
             children: [
               TextWidget(
                 label: 'Today',
-                // onTap: () => context
-                //     .read<HomeBloc>()
-                //     .add(const SetFilterEvent(filterName: 'Today')),
                 onTap: () {
-                  final date = DateTime.parse('9/18/2024');
-                  print('date : $date');
-                  Timestamp timestamp = Timestamp.fromDate(date);
-                  print('timestamp : $timestamp');
+                  context
+                      .read<HomeBloc>()
+                      .add(const SetFilterEvent(filterName: 'Today'));
+                  context.read<HomeBloc>().add(const FetchDataOfCurrentDay());
                 },
                 isSelected: state.filterName == 'Today',
               ),
               TextWidget(
                 label: 'Week',
-                onTap: () => context
-                    .read<HomeBloc>()
-                    .add(const SetFilterEvent(filterName: 'Week')),
+                onTap: () {
+                  context
+                      .read<HomeBloc>()
+                      .add(const SetFilterEvent(filterName: 'Week'));
+                  context.read<HomeBloc>().add(const FetchDataByWeek());
+                },
                 isSelected: state.filterName == 'Week',
               ),
               TextWidget(
                 label: 'Month',
-                onTap: () => context
-                    .read<HomeBloc>()
-                    .add(const SetFilterEvent(filterName: 'Month')),
+                onTap: () {
+                  context
+                      .read<HomeBloc>()
+                      .add(const SetFilterEvent(filterName: 'Month'));
+                  context.read<HomeBloc>().add(const FetchDataByMonth());
+                },
                 isSelected: state.filterName == 'Month',
               ),
               TextWidget(
                 label: 'Year',
-                onTap: () => context
-                    .read<HomeBloc>()
-                    .add(const SetFilterEvent(filterName: 'Year')),
+                onTap: () {
+                  context
+                      .read<HomeBloc>()
+                      .add(const SetFilterEvent(filterName: 'Year'));
+                  context.read<HomeBloc>().add(const FetchDataByYear());
+                },
                 isSelected: state.filterName == 'Year',
               ),
             ],

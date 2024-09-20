@@ -17,7 +17,7 @@ class CustomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 310,
+      height: 290,
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.instance.light100,
@@ -77,8 +77,8 @@ class _CustomListTile extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 70,
-            width: 70,
+            height: 60,
+            width: 60,
             margin:
                 const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 10),
             decoration: BoxDecoration(
