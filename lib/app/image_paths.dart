@@ -21,4 +21,4 @@ const String appLogo = 'assets/icons/app_logo/montra.png';
 
 const String appIcon = 'assets/icons/app_logo/montra_app_logo.png';
 
-const String name = '';
+const String menuIcon = 'assets/icons/transaction_icon/sort.svg';

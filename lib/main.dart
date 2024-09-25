@@ -9,7 +9,9 @@ import 'package:montra_clone/firebase_options.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // LocaleSettings.useDeviceLocale();
   runApp(App());
+  // runApp(TranslationProvider(child: App()));
 }
 
 class App extends StatelessWidget {
@@ -22,6 +24,9 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => AuthenticationRepository(),
       child: MaterialApp.router(
+        // locale: TranslationProvider.of(context).flutterLocale, // use provider
+        // supportedLocales: AppLocaleUtils.supportedLocales,
+        // localizationsDelegates: GlobalMaterialLocalizations.delegates,
         routerConfig: _router.config(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: GoogleFonts.inter().fontFamily),

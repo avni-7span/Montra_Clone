@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
@@ -70,17 +71,23 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.instance.light100,
-        appBar: AppBar(
-          backgroundColor: AppColors.instance.light100,
-          centerTitle: true,
-          title: const Text('Login'),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: AppColors.instance.light100,
+        //   centerTitle: true,
+        //   title: const Text('Login'),
+        // ),
         body: Center(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
+              Image.asset(
+                appLogo,
+                height: 50,
+                width: 50,
+              ),
+              const SizedBox(height: 90),
               const _EmailField(),
               const SizedBox(height: 20),
               const _PasswordField(),
@@ -90,13 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
               const ForgotPasswordText(),
               const SizedBox(height: 20),
               CustomRichText(
-                  title: 'Don’t have an account yet? ',
-                  subtitle: 'Sign Up',
-                  onTap: () {
-                    context.router.replace(
-                      const SignupRoute(),
-                    );
-                  })
+                title: 'Don’t have an account yet? ',
+                subtitle: 'Sign Up',
+                onTap: () {
+                  context.router.replace(
+                    const SignupRoute(),
+                  );
+                },
+              ),
             ],
           ),
         ),

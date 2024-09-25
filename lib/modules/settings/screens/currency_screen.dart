@@ -44,7 +44,7 @@ class CurrencyScreen extends StatelessWidget implements AutoRouteWrapper {
                         const SetCurrencyEvent(currency: 'USD'),
                       );
                 },
-                title: 'United States (USD)',
+                title: 'United States (USD \$)',
                 trailing: state.currency == 'USD'
                     ? Icon(
                         Icons.check_circle,
@@ -58,7 +58,7 @@ class CurrencyScreen extends StatelessWidget implements AutoRouteWrapper {
                         const SetCurrencyEvent(currency: 'Rupee'),
                       );
                 },
-                title: 'India (Rupee)',
+                title: 'India (Rupee \u{20B9})',
                 trailing: state.currency == 'Rupee'
                     ? Icon(
                         Icons.check_circle,

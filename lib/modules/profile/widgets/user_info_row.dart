@@ -33,7 +33,7 @@ class UserInfoRow extends StatelessWidget {
                 userName,
                 style: TextStyle(
                   color: AppColors.instance.dark100,
-                  fontSize: 30,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -50,7 +50,7 @@ class UserInfoRow extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 10),
           child: IconButton(
             onPressed: onEditIconTap,
             icon: Image.asset(

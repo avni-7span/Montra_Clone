@@ -63,9 +63,9 @@ class BudgetContainer extends StatelessWidget {
                 ),
               ),
               Text(
-                totalBudget > 0
-                    ? '\$${totalBudget.toString()}'
-                    : '- \$${totalBudget.abs().toString()}',
+                totalBudget >= 0
+                    ? '\u{20B9}${totalBudget.toString()}'
+                    : '- \u{20B9}${totalBudget.abs().toString()}',
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -78,13 +78,13 @@ class BudgetContainer extends StatelessWidget {
                     icon: Icons.arrow_downward,
                     color: AppColors.instance.green100,
                     label: 'Income',
-                    price: '\$${income.toString()}',
+                    price: '\u{20B9}${income.toString()}',
                   ),
                   PriceCard(
                     icon: Icons.arrow_upward,
                     color: AppColors.instance.red100,
                     label: 'Expenses',
-                    price: '\$${expense.toString()}',
+                    price: '\u{20B9}${expense.toString()}',
                   ),
                 ],
               ),

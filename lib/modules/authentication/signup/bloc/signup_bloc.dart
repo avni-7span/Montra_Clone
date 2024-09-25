@@ -88,35 +88,40 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       ),
     );
     emit(state.copyWith(status: SignUpStateStatus.initial));
-    if (!state.isChecked) {
-      emit(state.copyWith(status: SignUpStateStatus.isNotChecked));
-    }
-    if (state.isValid && state.isChecked) {
-      try {
-        emit(state.copyWith(status: SignUpStateStatus.loading));
-        final credential =
-            await _authenticationRepository.signUpWithEmailPassword(
-          email: email.value.trim(),
-          password: password.value,
-        );
+    if (state.isValid) {
+      if (!state.isChecked) {
+        emit(state.copyWith(status: SignUpStateStatus.isNotChecked));
+      } else {
+        try {
+          emit(state.copyWith(status: SignUpStateStatus.loading));
+          final credential =
+              await _authenticationRepository.signUpWithEmailPassword(
+            email: email.value.trim(),
+            password: password.value,
+          );
 
-        await _authenticationRepository.sendVerificationEmail();
+          await _authenticationRepository.sendVerificationEmail();
 
-        createUserCollection(credential.user?.uid ?? '');
+          createUserCollection(
+            name: state.name.value,
+            email: state.email.value,
+            userUID: credential.user?.uid ?? '',
+          );
 
-        emit(state.copyWith(status: SignUpStateStatus.success));
-      } on FirebaseException catch (e) {
-        emit(
+          emit(state.copyWith(status: SignUpStateStatus.success));
+        } on FirebaseException catch (e) {
+          emit(
+            state.copyWith(
+              status: SignUpStateStatus.failure,
+              error: SignUpWithEmailAndPasswordFailure(e.code).message,
+            ),
+          );
+        } catch (e) {
           state.copyWith(
             status: SignUpStateStatus.failure,
-            error: SignUpWithEmailAndPasswordFailure(e.code).message,
-          ),
-        );
-      } catch (e) {
-        state.copyWith(
-          status: SignUpStateStatus.failure,
-          error: 'Something went wrong',
-        );
+            error: 'Something went wrong',
+          );
+        }
       }
     }
   }
@@ -134,7 +139,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   ) async {
     try {
       emit(state.copyWith(status: SignUpStateStatus.signupWithGoogleLoading));
-      // await GoogleSignIn().signOut();
+
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
@@ -146,17 +151,26 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       );
       await _authenticationRepository.signUpWithCredentials(
           credential: credential);
+      if (googleUser != null) {
+        final userEmail = googleUser.email;
+        final userName = googleUser.displayName;
+        final userUid = _authenticationRepository.currentUser?.uid;
+        createUserCollection(
+            userUID: userUid!, email: userEmail, name: userName ?? 'Unknown');
+      }
       emit(state.copyWith(status: SignUpStateStatus.signupWithGoogleDone));
     } catch (e) {
       emit(state.copyWith(
           status: SignUpStateStatus.failure,
-          error: 'Sign up with Google failed,! Please try again later'));
+          error: 'Sign up with Google failed!, Please try again later'));
     }
   }
 
-  Future<void> createUserCollection(String userUID) async {
-    final UserModel user =
-        UserModel(email: state.email.value, name: state.name.value);
+  Future<void> createUserCollection(
+      {required String userUID,
+      required String email,
+      required String name}) async {
+    final UserModel user = UserModel(email: email, name: name);
     await fireStoreInstance
         .collection('users')
         .doc(userUID)

@@ -27,7 +27,7 @@ class AmountTextField extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: '0',
-          prefixIcon: Text('\$', style: textStyle),
+          prefixIcon: Text('\u{20B9}', style: textStyle),
           hintStyle: textStyle,
           error: errorWidget,
         ),

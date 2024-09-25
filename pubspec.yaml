@@ -31,22 +31,26 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  flutter_localizations:
+    sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
   auto_route: ^9.2.2
-  firebase_core: ^2.24.2
+  firebase_core: ^3.5.0
   formz: ^0.7.0
-  firebase_auth: ^4.16.0
+  firebase_auth: ^5.3.0
   google_sign_in: ^6.2.1
   shared_preferences: ^2.3.2
   google_fonts: ^6.2.1
-  cloud_firestore: ^4.17.5
+  cloud_firestore: ^5.4.2
   intl: ^0.19.0
   uuid: ^4.5.0
+  slang: ^3.31.2
+  slang_flutter: ^3.31.0
+  flutter_localization: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +63,9 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
   auto_route_generator:
-  build_runner:
+  build_runner: 2.4.12
   flutter_launcher_icons: '0.13.1'
+  slang_build_runner: 3.31.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -81,6 +86,7 @@ flutter:
     - assets/icons/bottom_navigation_icons/
     - assets/icons/profile_icons/
     - assets/icons/app_logo/
+    - assets/icons/transaction_icon/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

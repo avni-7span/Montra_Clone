@@ -51,7 +51,6 @@ class SignupScreen extends StatelessWidget implements AutoRouteWrapper {
         } else if (state.status == SignUpStateStatus.success) {
           context.router.replace(const VerificationInfoRoute());
         } else if (state.status == SignUpStateStatus.signupWithGoogleDone) {
-          /// TODO : replaceALL
           context.router.replaceAll([const BottomNavigationBarRoute()]);
         }
       },
@@ -60,7 +59,13 @@ class SignupScreen extends StatelessWidget implements AutoRouteWrapper {
         appBar: AppBar(
           backgroundColor: AppColors.instance.light100,
           centerTitle: true,
-          title: const Text('Sign Up'),
+          title: Text(
+            'Sign Up',
+            style: TextStyle(
+              color: AppColors.instance.primary,
+              fontSize: 25,
+            ),
+          ),
         ),
         body: Center(
           child: ListView(

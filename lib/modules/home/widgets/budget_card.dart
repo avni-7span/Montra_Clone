@@ -93,7 +93,7 @@ class BudgetCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    isExpense ? '-\$$amount' : '+\$$amount',
+                    isExpense ? '-\u{20B9}$amount' : '+\u{20B9}$amount',
                     style: TextStyle(
                       color: isExpense
                           ? AppColors.instance.red100

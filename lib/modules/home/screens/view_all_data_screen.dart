@@ -24,46 +24,58 @@ class ViewAllDataScreen extends StatelessWidget implements AutoRouteWrapper {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: AppColors.instance.light100,
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text('All Transactions'),
             backgroundColor: AppColors.instance.light100,
-          ),
-          body: state.status == HomeStateStatus.failure
-              ? const Center(
-                  child: Text(
-                    'Could Not load data !',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                )
-              : state.status == HomeStateStatus.transactionDataLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      itemCount: state.transactionList.length,
-                      itemBuilder: (context, index) {
-                        return BudgetCard(
-                          category: state.transactionList[index].category,
-                          isExpense: state.transactionList[index].isExpense,
-                          amount:
-                              state.transactionList[index].transactionAmount,
-                          description: state.transactionList[index].description,
-                          createdAt: FireStoreQueries.instance.getFormatedDate(
-                              state.transactionList[index].createdAt),
-                          onCardTap: () {
-                            context.router.push(
-                              ExpenseTrackerRoute(
-                                isExpense:
-                                    state.transactionList[index].isExpense,
-                                transactionModel: state.transactionList[index],
-                              ),
-                            );
-                          },
-                        );
-                      },
+            appBar: AppBar(
+              centerTitle: true,
+              title: const Text('All Transactions'),
+              backgroundColor: AppColors.instance.light100,
+            ),
+            body: state.status == HomeStateStatus.failure
+                ? const Center(
+                    child: Text(
+                      'Could Not load data !',
+                      style: TextStyle(fontSize: 30),
                     ),
-        );
+                  )
+                : state.status == HomeStateStatus.transactionDataLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : state.status == HomeStateStatus.success
+                        ? state.transactionList.isEmpty
+                            ? const Center(
+                                child: Text(
+                                    'You have not made any transactions yet'),
+                              )
+                            : ListView.builder(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                itemCount: state.transactionList.length,
+                                itemBuilder: (context, index) {
+                                  return BudgetCard(
+                                    category:
+                                        state.transactionList[index].category,
+                                    isExpense:
+                                        state.transactionList[index].isExpense,
+                                    amount: state.transactionList[index]
+                                        .transactionAmount,
+                                    description: state
+                                        .transactionList[index].description,
+                                    createdAt: FireStoreQueries.instance
+                                        .getFormatedDate(state
+                                            .transactionList[index].createdAt),
+                                    onCardTap: () {
+                                      context.router.push(
+                                        ExpenseTrackerRoute(
+                                          isExpense: state
+                                              .transactionList[index].isExpense,
+                                          transactionModel:
+                                              state.transactionList[index],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                        : const SizedBox());
       },
     );
   }

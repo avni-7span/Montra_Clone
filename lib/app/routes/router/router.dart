@@ -41,5 +41,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SettingRoute.page),
         AutoRoute(page: CurrencyRoute.page),
         AutoRoute(page: LanguageRoute.page),
+
+        /// SubRoutes of transaction route
+        AutoRoute(page: FinancialReportRoute.page),
       ];
 }
