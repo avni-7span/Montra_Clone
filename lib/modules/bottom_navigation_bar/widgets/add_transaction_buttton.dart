@@ -14,6 +14,7 @@ class AddTransactionButton extends StatefulWidget {
 class _AddTransactionButtonState extends State<AddTransactionButton> {
   Future<void> _showBottomSheet({required BuildContext screenContext}) {
     return showModalBottomSheet(
+      backgroundColor: AppColors.instance.light100,
       isScrollControlled: true,
       context: screenContext,
       builder: (context) {

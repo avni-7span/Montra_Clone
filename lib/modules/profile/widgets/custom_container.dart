@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 
@@ -81,16 +82,17 @@ class _CustomListTile extends StatelessWidget {
             width: 60,
             margin:
                 const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 10),
+            padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: isLogoutTile
                   ? AppColors.instance.red20
                   : AppColors.instance.violet20,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Image.asset(
+            child: SvgPicture.asset(
               imagePath,
-              height: 60,
-              width: 60,
+              // height: 10,
+              // width: 10,
             ),
           ),
           const SizedBox(width: 10),

@@ -7,6 +7,7 @@ import 'package:montra_clone/core/utils/fire_store_queries.dart';
 import 'package:montra_clone/modules/home/widgets/budget_card.dart';
 import 'package:montra_clone/modules/transaction/bloc/transaction_bloc.dart';
 import 'package:montra_clone/modules/transaction/widgets/current_filter_container.dart';
+import 'package:montra_clone/modules/transaction/widgets/filter_bottom_sheet.dart';
 import 'package:montra_clone/modules/transaction/widgets/report_container.dart';
 
 @RoutePage()
@@ -16,8 +17,7 @@ class TransactionScreen extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          TransactionBloc(), //..add(const FetchDataByDayEvent()),
+      create: (context) => TransactionBloc()..add(const FetchDataByDayEvent()),
       child: this,
     );
   }
@@ -28,15 +28,25 @@ class TransactionScreen extends StatefulWidget implements AutoRouteWrapper {
 
 class _TransactionScreenState extends State<TransactionScreen> {
   @override
-  void initState() {
-    super.initState();
-    context.read<TransactionBloc>().add(const FetchDataByDayEvent());
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     context.read<TransactionBloc>().add(const FetchDataByDayEvent());
+  }
+
+  Future<void> _showFilterBottomSheet({required BuildContext screenContext}) {
+    return showModalBottomSheet(
+      backgroundColor: AppColors.instance.light100,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => BlocProvider.value(
+        value: BlocProvider.of<TransactionBloc>(screenContext),
+        child: FilterBottomSheet(
+          onBackTap: () {
+            Navigator.pop(screenContext);
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -46,7 +56,9 @@ class _TransactionScreenState extends State<TransactionScreen> {
         title: const CurrentFilterContainer(),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _showFilterBottomSheet(screenContext: context);
+            },
             icon: const Icon(
               Icons.sort,
               size: 30,
@@ -63,34 +75,51 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 const FinancialReportRoute(),
               );
             }),
+            const SizedBox(height: 10),
             BlocBuilder<TransactionBloc, TransactionState>(
               builder: (context, state) {
-                return ListView.builder(
-                  itemCount: state.dataByDayMap.length,
-                  itemBuilder: (context, index) {
-                    final key = state.dataByDayMap.keys.elementAt(index);
-                    final list = state.dataByDayMap[key];
-                    return Column(
-                      children: [
-                        DateTitle(date: key),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ...list!.map(
-                          (e) => BudgetCard(
-                            category: e.category,
-                            isExpense: e.isExpense,
-                            amount: e.transactionAmount,
-                            description: e.transactionAmount,
-                            createdAt: FireStoreQueries.instance
-                                .getFormatedDate(e.createdAt),
-                            onCardTap: () {},
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                return state.status == TransactionStateStatus.loading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : state.status == TransactionStateStatus.success
+                        ? Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: state.dataByDayMap.length,
+                              itemBuilder: (context, index) {
+                                final key =
+                                    state.dataByDayMap.keys.elementAt(index);
+                                final list = state.dataByDayMap[key];
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        DateTitle(date: key),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    ...list!.map(
+                                      (e) => BudgetCard(
+                                        category: e.category,
+                                        isExpense: e.isExpense,
+                                        amount: e.transactionAmount,
+                                        description: e.transactionAmount,
+                                        createdAt: FireStoreQueries.instance
+                                            .getFormattedTime(e.createdAt),
+                                        onCardTap: () {},
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          )
+                        : const SizedBox();
               },
             )
           ],
@@ -112,9 +141,9 @@ class DateTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       date,
-      textAlign: TextAlign.start,
+      // textAlign: TextAlign.start,
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 15,
         color: AppColors.instance.dark100,
         fontWeight: FontWeight.bold,
       ),

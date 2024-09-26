@@ -33,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _showLogoutBottomSheet(
       {required BuildContext bottomSheetContext}) async {
     showModalBottomSheet(
+      backgroundColor: AppColors.instance.light100,
       context: context,
       isScrollControlled: true,
       isDismissible: true,

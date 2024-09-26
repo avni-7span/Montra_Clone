@@ -17,6 +17,13 @@ class FireStoreQueries {
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
+  /// Converts epoch(milliseconds) into time
+  String getFormattedTime(int epochTime) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(epochTime * 1000);
+    DateFormat dateFormat = DateFormat('hh:mm a');
+    return dateFormat.format(dateTime);
+  }
+
   /// Converts DateTime into epoch(milliseconds)
   int _getEpochFromDateTime(DateTime date) {
     return date.millisecondsSinceEpoch;

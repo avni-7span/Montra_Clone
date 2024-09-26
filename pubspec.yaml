@@ -51,6 +51,7 @@ dependencies:
   slang: ^3.31.2
   slang_flutter: ^3.31.0
   flutter_localization: ^0.2.2
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -67,10 +68,17 @@ dev_dependencies:
   flutter_launcher_icons: '0.13.1'
   slang_build_runner: 3.31.0
 
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+
+flutter_gen:
+
+  integrations:
+    flutter_svg: true
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -100,11 +108,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/inter/Inter-Italic-VariableFont_opsz,wght.ttf
-        - asset: assets/fonts/inter/Inter-VariableFont_opsz,wght.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

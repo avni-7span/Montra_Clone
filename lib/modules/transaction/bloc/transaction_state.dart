@@ -4,36 +4,46 @@ enum TransactionStateStatus { initial, success, failure, loading }
 
 class TransactionState extends Equatable {
   const TransactionState({
-    this.currentIndex = 0,
     this.status = TransactionStateStatus.initial,
     this.errorMessage = '',
     this.dataByDayMap = const {},
+    this.filterBy,
+    this.sortBy,
+    this.categoryFilter,
   });
 
   final TransactionStateStatus status;
-  final int currentIndex;
   final String errorMessage;
   final Map<String, List<TransactionModel>> dataByDayMap;
+  final String? filterBy;
+  final String? sortBy;
+  final String? categoryFilter;
 
   @override
   List<Object?> get props => [
-        currentIndex,
         status,
         errorMessage,
         dataByDayMap,
+        filterBy,
+        sortBy,
+        categoryFilter,
       ];
 
   TransactionState copyWith({
     TransactionStateStatus? status,
-    int? currentIndex,
     String? errorMessage,
-    Map<String, List<TransactionModel>>? dataByDayDayList,
+    Map<String, List<TransactionModel>>? dataByDayMap,
+    String? filterBy,
+    String? sortBy,
+    String? categoryFilter,
   }) {
     return TransactionState(
       status: status ?? this.status,
-      currentIndex: currentIndex ?? this.currentIndex,
       errorMessage: errorMessage ?? this.errorMessage,
-      dataByDayMap: dataByDayDayList ?? this.dataByDayMap,
+      dataByDayMap: dataByDayMap ?? this.dataByDayMap,
+      filterBy: filterBy ?? this.filterBy,
+      sortBy: sortBy ?? this.sortBy,
+      categoryFilter: categoryFilter ?? this.categoryFilter,
     );
   }
 }

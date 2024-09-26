@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 
@@ -53,7 +54,7 @@ class UserInfoRow extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10),
           child: IconButton(
             onPressed: onEditIconTap,
-            icon: Image.asset(
+            icon: SvgPicture.asset(
               editIconPath,
               color: AppColors.instance.dark100,
             ),

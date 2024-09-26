@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/modules/bottom_navigation_bar/widgets/add_transaction_buttton.dart';
 
@@ -31,31 +33,23 @@ class BottomNavigationBarScreen extends StatelessWidget {
             backgroundColor: AppColors.instance.light100,
             items: [
               BottomNavigationBarItem(
-                icon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/home.png'),
-                activeIcon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/home_.png'),
+                icon: SvgPicture.asset(homeInactiveIconPath),
+                activeIcon: SvgPicture.asset(homeActiveIconPath),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/transaction.png'),
-                activeIcon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/transaction_.png'),
+                icon: SvgPicture.asset(transactionInactiveIconPath),
+                activeIcon: SvgPicture.asset(transactionActiveIconPath),
                 label: 'Transaction',
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/pie-chart.png'),
-                activeIcon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/pie-chart_.png'),
+                icon: SvgPicture.asset(pieChartInactiveIconPath),
+                activeIcon: SvgPicture.asset(pieChartActiveIconPath),
                 label: 'Budget',
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/user.png'),
-                activeIcon: Image.asset(
-                    'assets/icons/bottom_navigation_icons/user_.png'),
+                icon: SvgPicture.asset(userInactiveIconPath),
+                activeIcon: SvgPicture.asset(userActiveIconPath),
                 label: 'Profile',
               )
             ],

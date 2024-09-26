@@ -239,8 +239,8 @@ class _CategoryField extends StatelessWidget {
         return CustomDropDownField(
           labelText: 'Category',
           options: isExpense
-              ? ['Food', 'Subscription', 'Shopping']
-              : ['Employment Income', 'Rental Income', 'Interest'],
+              ? ['Food', 'Subscription', 'Shopping', 'Transportation']
+              : ['Salary', 'Rental Income', 'Interest'],
           selectedValue: transactionModel == null
               ? state.category
               : transactionModel!.category,

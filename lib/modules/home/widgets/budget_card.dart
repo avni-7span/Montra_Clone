@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 
@@ -40,22 +41,31 @@ class BudgetCard extends StatelessWidget {
             Container(
               height: 70,
               width: 70,
+              padding: EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: category == 'Food'
-                    ? AppColors.instance.red20
-                    : category == 'Shopping'
-                        ? AppColors.instance.yellow20
-                        : AppColors.instance.violet20,
+                color: !isExpense
+                    ? AppColors.instance.green20
+                    : category == 'Food'
+                        ? AppColors.instance.red20
+                        : category == 'Shopping'
+                            ? AppColors.instance.yellow20
+                            : category == 'Transportation'
+                                ? AppColors.instance.blue20
+                                : AppColors.instance.violet20,
                 borderRadius: const BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
-              child: Image.asset(
-                category == 'Food'
-                    ? foodIconPath
-                    : category == 'Shopping'
-                        ? shoppingIconPath
-                        : subscriptionIconPath,
+              child: SvgPicture.asset(
+                !isExpense
+                    ? salaryIconPath
+                    : category == 'Food'
+                        ? foodIconPath
+                        : category == 'Shopping'
+                            ? shoppingIconPath
+                            : category == 'Transportation'
+                                ? carIconPath
+                                : subscriptionIconPath,
                 height: 50,
                 width: 50,
               ),
