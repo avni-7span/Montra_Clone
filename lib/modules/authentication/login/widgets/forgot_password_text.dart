@@ -9,11 +9,7 @@ class ForgotPasswordText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.router.push(
-          const ForgotPasswordRoute(),
-        );
-      },
+      onTap: () => context.pushRoute(const ForgotPasswordRoute()),
       child: Text(
         'Forgot Password ?',
         textAlign: TextAlign.center,

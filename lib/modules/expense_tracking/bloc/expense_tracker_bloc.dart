@@ -82,9 +82,7 @@ class ExpenseTrackerBloc
     emit(
       state.copyWith(
         description: description,
-        isValid: Formz.validate(
-          [description],
-        ),
+        isValid: Formz.validate([description]),
       ),
     );
   }

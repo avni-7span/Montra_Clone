@@ -64,15 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     : state.status == HomeStateStatus.success
                         ? state.transactionList.isEmpty
                             ? Center(
-                                child: Text(
-                                  state.filterName == 'Today'
-                                      ? 'You have not added any transactions today'
-                                      : state.filterName == 'Week'
-                                          ? 'No transactions in this week'
-                                          : state.filterName == 'Month'
-                                              ? 'No transactions in this month'
-                                              : 'No transactions in this Year',
-                                ),
+                                child: Text(switch (state.filterName) {
+                                  'Today' =>
+                                    'You have not added any transactions today',
+                                  'Week' => 'No transactions in this week',
+                                  'Month' => 'No transactions in this month',
+                                  String() => 'No transactions in this Year',
+                                }),
                               )
                             : ListView.builder(
                                 padding:

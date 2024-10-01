@@ -5,6 +5,8 @@ const String carIconPath = 'assets/icons/category_icons/car.svg';
 const String salaryIconPath = 'assets/icons/category_icons/salary.svg';
 const String subscriptionIconPath =
     'assets/icons/category_icons/recurring_bill.svg';
+const String moneyBag = 'assets/icons/category_icons/money-bag.png';
+const String expense = 'assets/icons/category_icons/expenses.png';
 
 /// Bottom navigation icons path
 const String homeActiveIconPath =
@@ -41,3 +43,13 @@ const String menuIcon = 'assets/icons/transaction_icon/sort.svg';
 
 /// Image path
 const String fakeUserImagePath = 'assets/images/fake_user_image.jpg';
+
+/// financial report icons
+const String budgetActiveIcon =
+    'assets/icons/financial_report_icons/budget_active_icon.svg';
+const String categoryActiveIcon =
+    'assets/icons/financial_report_icons/category_active_icon.svg';
+const String budgetInactiveIcon =
+    'assets/icons/financial_report_icons/budget_inactive_icon.svg';
+const String categoryInactiveIcon =
+    'assets/icons/financial_report_icons/category_inactive_icon.svg';

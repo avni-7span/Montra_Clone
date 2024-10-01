@@ -34,3 +34,16 @@ class SetCategoryFilterEvent extends TransactionEvent {
   @override
   List<Object?> get props => [categoryFilter];
 }
+
+class ResetFilterEvent extends TransactionEvent {
+  const ResetFilterEvent();
+  @override
+  List<Object?> get props => [];
+}
+
+class FetchDataByFilterEvent extends TransactionEvent {
+  const FetchDataByFilterEvent();
+
+  @override
+  List<Object?> get props => [];
+}

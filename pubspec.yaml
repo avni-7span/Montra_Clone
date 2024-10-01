@@ -52,6 +52,9 @@ dependencies:
   slang_flutter: ^3.31.0
   flutter_localization: ^0.2.2
   flutter_svg: ^2.0.10+1
+  firebase_remote_config: ^5.1.3
+  firebase_analytics: ^11.3.3
+  syncfusion_flutter_charts: ^27.1.51
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +98,7 @@ flutter:
     - assets/icons/profile_icons/
     - assets/icons/app_logo/
     - assets/icons/transaction_icon/
+    - assets/icons/financial_report_icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

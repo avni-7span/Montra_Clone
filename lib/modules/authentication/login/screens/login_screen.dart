@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) async {
         if (state.status == LoginStateStatus.failure) {
           return showTheSnackBar(

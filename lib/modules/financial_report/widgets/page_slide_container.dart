@@ -14,7 +14,7 @@ class PageSlideContainer extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return Container(
       height: 5,
-      width: size.width * (0.24),
+      width: size.width * (0.33),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: isCurrentIndex

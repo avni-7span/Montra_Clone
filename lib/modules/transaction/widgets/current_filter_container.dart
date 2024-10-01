@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
 
 class CurrentFilterContainer extends StatelessWidget {
-  const CurrentFilterContainer({super.key});
+  const CurrentFilterContainer({
+    super.key,
+    required this.filterTitle,
+  });
+
+  final String filterTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class CurrentFilterContainer extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          'Category',
+          filterTitle,
           style: TextStyle(
             color: AppColors.instance.primary,
             fontSize: 15,

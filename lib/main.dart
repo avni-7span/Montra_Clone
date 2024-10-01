@@ -5,13 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:montra_clone/app/routes/router/router.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
 import 'package:montra_clone/firebase_options.dart';
+import 'package:montra_clone/modules/bottom_navigation_bar/remote_config_service.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // LocaleSettings.useDeviceLocale();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await RemoteConfigService.instance.initialize();
   runApp(App());
-  // runApp(TranslationProvider(child: App()));
 }
 
 class App extends StatelessWidget {
@@ -24,9 +24,6 @@ class App extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => AuthenticationRepository(),
       child: MaterialApp.router(
-        // locale: TranslationProvider.of(context).flutterLocale, // use provider
-        // supportedLocales: AppLocaleUtils.supportedLocales,
-        // localizationsDelegates: GlobalMaterialLocalizations.delegates,
         routerConfig: _router.config(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: GoogleFonts.inter().fontFamily),

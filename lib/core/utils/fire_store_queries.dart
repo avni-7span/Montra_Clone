@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:montra_clone/core/repository/authentication_repository.dart';
 
 class FireStoreQueries {
-  /// singleton
   static final FireStoreQueries instance = FireStoreQueries._internal();
   factory FireStoreQueries() => instance;
   FireStoreQueries._internal();
@@ -38,7 +37,7 @@ class FireStoreQueries {
   Future<
       (
         List<QueryDocumentSnapshot<Map<String, dynamic>>>,
-        List<QueryDocumentSnapshot<Map<String, dynamic>>>
+        List<QueryDocumentSnapshot<Map<String, dynamic>>>,
       )> getTodayData() async {
     final now = DateTime.now();
     DateTime startOfToday = DateTime(now.year, now.month, now.day); // 12 am
@@ -105,6 +104,16 @@ class FireStoreQueries {
         .where('createdAt',
             isGreaterThanOrEqualTo: _getEpochFromDateTime(startOfYear))
         .where('createdAt', isLessThan: _getEpochFromDateTime(endOfYear))
+        .get();
+    return querySnapshot.docs;
+  }
+
+  /// Get documents based on isExpenseFlag
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      getDataByIsExpenseFlag({required bool isExpense}) async {
+    final collectionReference = await getCollectionReference();
+    final querySnapshot = await collectionReference
+        .where('isExpense', isEqualTo: isExpense)
         .get();
     return querySnapshot.docs;
   }

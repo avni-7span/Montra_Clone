@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/core/widgets/button_title.dart';
 import 'package:montra_clone/core/widgets/custom_elevated_button.dart';
 import 'package:montra_clone/core/widgets/decorated_line.dart';
@@ -14,9 +12,11 @@ class FilterBottomSheet extends StatelessWidget {
   const FilterBottomSheet({
     super.key,
     required this.onBackTap,
+    required this.onApplyTap,
   });
 
   final VoidCallback onBackTap;
+  final VoidCallback onApplyTap;
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +39,18 @@ class FilterBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
           Row(children: [Text('Category', style: textStyle)]),
           const SizedBox(height: 15),
-          CustomCategoryDropDown(),
+          const CustomCategoryDropDown(),
           const SizedBox(height: 40),
           CustomElevatedButton(
             buttonLabel:
-            const ButtonTitle(isPurple: true, buttonLabel: 'Apply'),
+                const ButtonTitle(isPurple: true, buttonLabel: 'Apply'),
             isPurple: true,
-            onPressed: () {},
+            onPressed: () {
+              context
+                  .read<TransactionBloc>()
+                  .add(const FetchDataByFilterEvent());
+              onApplyTap();
+            },
           ),
           const SizedBox(height: 15),
         ],
@@ -75,7 +80,9 @@ class ResetFilterRow extends StatelessWidget {
         FilterButton(
           label: 'Reset',
           isSelected: true,
-          onTap: () {},
+          onTap: () {
+            context.read<TransactionBloc>().add(const ResetFilterEvent());
+          },
         )
       ],
     );
@@ -171,40 +178,6 @@ class SortByRow extends StatelessWidget {
   }
 }
 
-class CategoryListTile extends StatelessWidget {
-  const CategoryListTile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Choose Category',
-          style: TextStyle(fontSize: 15),
-        ),
-        GestureDetector(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Category',
-                style: TextStyle(fontSize: 15),
-              ),
-              const SizedBox(width: 10),
-              SvgPicture.asset(
-                routeIconPath,
-                height: 23,
-                width: 23,
-              )
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class CustomCategoryDropDown extends StatelessWidget {
   const CustomCategoryDropDown({super.key});
 
@@ -213,16 +186,13 @@ class CustomCategoryDropDown extends StatelessWidget {
     return BlocBuilder<TransactionBloc, TransactionState>(
       builder: (context, state) {
         return CategoryDropDown(
+          isExpense: state.filterBy == 'Expense',
+          selectedValue: state.categoryFilter,
           onChanged: (value) {
             context
                 .read<TransactionBloc>()
                 .add(SetCategoryFilterEvent(categoryFilter: value));
           },
-          options: state.filterBy == 'Expense'
-              ? ['Food', 'Subscription', 'Shopping', 'Transportation']
-              : ['Salary', 'Rental Income', 'Interest'], //optionList,
-          labelText: 'Choose Category',
-          selectedValue:
         );
       },
     );

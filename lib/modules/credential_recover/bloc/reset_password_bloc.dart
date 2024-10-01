@@ -11,9 +11,9 @@ part 'reset_password_event.dart';
 part 'reset_password_state.dart';
 
 class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
-  ResetPasswordBloc(
-      {required AuthenticationRepository authenticationRepository})
-      : _authenticationRepository = authenticationRepository,
+  ResetPasswordBloc({
+    required AuthenticationRepository authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(const ResetPasswordState()) {
     on<EmailFieldChangeEvent>(_checkEmail);
     on<SendResetPasswordEmailEvent>(_sendResetPasswordEmail);
@@ -29,9 +29,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     emit(
       state.copyWith(
         email: email,
-        isValid: Formz.validate(
-          [email],
-        ),
+        isValid: Formz.validate([email]),
       ),
     );
   }
@@ -44,9 +42,7 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     emit(
       state.copyWith(
         email: email,
-        isValid: Formz.validate(
-          [email],
-        ),
+        isValid: Formz.validate([email]),
       ),
     );
     if (state.isValid) {

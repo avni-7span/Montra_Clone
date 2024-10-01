@@ -227,12 +227,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         (a, b) => a.createdAt.compareTo(b.createdAt),
       );
       final dataList = list.reversed.toList();
-      emit(state.copyWith(
-          status: HomeStateStatus.success, transactionList: dataList));
+      emit(
+        state.copyWith(
+          status: HomeStateStatus.success,
+          transactionList: dataList,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: HomeStateStatus.failure,
-          errorMessage: 'Something went wrong'));
+          errorMessage: 'Something went wrong',
+        ),
+      );
     }
   }
 }

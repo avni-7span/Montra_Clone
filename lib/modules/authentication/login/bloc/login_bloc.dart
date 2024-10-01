@@ -33,9 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(
       state.copyWith(
         email: email,
-        isValid: Formz.validate(
-          [email],
-        ),
+        isValid: Formz.validate([email]),
       ),
     );
   }
@@ -48,9 +46,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(
       state.copyWith(
         password: password,
-        isValid: Formz.validate(
-          [password],
-        ),
+        isValid: Formz.validate([password]),
       ),
     );
   }
@@ -65,9 +61,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       state.copyWith(
         email: email,
         password: password,
-        isValid: Formz.validate(
-          [password, email],
-        ),
+        isValid: Formz.validate([password, email]),
       ),
     );
     try {

@@ -44,16 +44,31 @@ class _TransactionScreenState extends State<TransactionScreen> {
           onBackTap: () {
             Navigator.pop(screenContext);
           },
+          onApplyTap: () {
+            Navigator.pop(screenContext);
+          },
         ),
       ),
     );
   }
 
+  TextStyle textStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 25,
+    color: AppColors.instance.primary,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const CurrentFilterContainer(),
+        title: BlocBuilder<TransactionBloc, TransactionState>(
+          builder: (context, state) {
+            return CurrentFilterContainer(
+              filterTitle: state.filterBy ?? 'All',
+            );
+          },
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -83,42 +98,84 @@ class _TransactionScreenState extends State<TransactionScreen> {
                         child: CircularProgressIndicator(),
                       )
                     : state.status == TransactionStateStatus.success
-                        ? Expanded(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.dataByDayMap.length,
-                              itemBuilder: (context, index) {
-                                final key =
-                                    state.dataByDayMap.keys.elementAt(index);
-                                final list = state.dataByDayMap[key];
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        DateTitle(date: key),
-                                      ],
+                        ? state.isDataInList
+                            ? state.transactionList.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      textAlign: TextAlign.center,
+                                      'There is no transactions to show for this filter',
+                                      style: textStyle,
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    ...list!.map(
-                                      (e) => BudgetCard(
-                                        category: e.category,
-                                        isExpense: e.isExpense,
-                                        amount: e.transactionAmount,
-                                        description: e.transactionAmount,
+                                  )
+                                : Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: state.transactionList.length,
+                                      itemBuilder: (context, index) =>
+                                          BudgetCard(
+                                        category: state
+                                            .transactionList[index].category,
+                                        isExpense: state
+                                            .transactionList[index].isExpense,
+                                        amount: state.transactionList[index]
+                                            .transactionAmount,
+                                        description: state
+                                            .transactionList[index].description,
                                         createdAt: FireStoreQueries.instance
-                                            .getFormattedTime(e.createdAt),
+                                            .getFormattedTime(state
+                                                .transactionList[index]
+                                                .createdAt),
                                         onCardTap: () {},
                                       ),
                                     ),
-                                  ],
-                                );
-                              },
-                            ),
-                          )
+                                  )
+                            : state.transactionMap.isEmpty
+                                ? Center(
+                                    child: Text(
+                                      'There is no transactions to show for this filter',
+                                      style: textStyle,
+                                    ),
+                                  )
+                                : Expanded(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: state.transactionMap.length,
+                                      itemBuilder: (context, index) {
+                                        final key = state.transactionMap.keys
+                                            .elementAt(index);
+                                        final list =
+                                            state.transactionMap[key] ?? [];
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                DateTitle(date: key),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            ...list.map(
+                                              (e) => BudgetCard(
+                                                category: e.category,
+                                                isExpense: e.isExpense,
+                                                amount: e.transactionAmount,
+                                                description: e.description,
+                                                createdAt: FireStoreQueries
+                                                    .instance
+                                                    .getFormattedTime(
+                                                        e.createdAt),
+                                                onCardTap: () {},
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  )
                         : const SizedBox();
               },
             )
