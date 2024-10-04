@@ -11,7 +11,7 @@ import 'package:montra_clone/modules/financial_analysis/widgets/income_expense_f
 import 'package:montra_clone/modules/home/widgets/budget_card.dart';
 
 @RoutePage()
-class AnalysisScreen extends StatelessWidget implements AutoRouteWrapper {
+class AnalysisScreen extends StatefulWidget implements AutoRouteWrapper {
   const AnalysisScreen({super.key});
 
   @override
@@ -22,6 +22,13 @@ class AnalysisScreen extends StatelessWidget implements AutoRouteWrapper {
       child: this,
     );
   }
+
+  @override
+  State<AnalysisScreen> createState() => _AnalysisScreenState();
+}
+
+class _AnalysisScreenState extends State<AnalysisScreen> {
+  _openDropdownMenu(BuildContext context, Offset position) {}
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +55,8 @@ class AnalysisScreen extends StatelessWidget implements AutoRouteWrapper {
             child: Column(
               children: [
                 FilterRow(
+                  onFilterTap: (details) =>
+                      _openDropdownMenu(context, details.globalPosition),
                   isBudgetType: state.isAnalysisBudgetType,
                   onBudgetTypeTap: () =>
                       context.read<FinancialAnalysisBloc>().add(
@@ -66,26 +75,24 @@ class AnalysisScreen extends StatelessWidget implements AutoRouteWrapper {
                         totalBudget: '\u{20B9}${state.totalAmount ?? 0}')
                     : const SizedBox(height: 32),
                 const SizedBox(height: 10),
-                GraphContainer(
-                  dataList: state.chartDataList,
-                ),
+                // GraphContainer(
+                //   dataList: state.chartDataList,
+                // ),
                 const SizedBox(height: 15),
                 IncomeExpenseFilter(
                   filterType: state.filterType,
                   onIncomeTap: () {
                     context.read<FinancialAnalysisBloc>().add(
-                          const AnalysisFilterChangeEvent(
-                              analysisFilter: AnalysisFilter.income),
-                        );
+                        const AnalysisFilterChangeEvent(
+                            analysisFilter: AnalysisFilter.income));
                     context
                         .read<FinancialAnalysisBloc>()
                         .add(const FetchDataListEvent());
                   },
                   onExpenseTap: () {
                     context.read<FinancialAnalysisBloc>().add(
-                          const AnalysisFilterChangeEvent(
-                              analysisFilter: AnalysisFilter.expense),
-                        );
+                        const AnalysisFilterChangeEvent(
+                            analysisFilter: AnalysisFilter.expense));
                     context
                         .read<FinancialAnalysisBloc>()
                         .add(const FetchDataListEvent());

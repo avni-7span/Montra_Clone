@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app_ui/widgets/atoms/atoms.dart';
 
 class PageViewCard extends StatelessWidget {
   const PageViewCard({
@@ -24,22 +26,22 @@ class PageViewCard extends StatelessWidget {
             height: 312,
             width: 312,
           ),
-          const SizedBox(height: 10),
-          Text(
-            title,
+          VSpace.small12(),
+          AppText(
+            level: AppTextLevel.XL,
+            text: title,
+            maxLines: 2,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-            ),
           ),
-          const SizedBox(height: 20),
-          Text(
-            subTitle,
+          VSpace.small12(),
+          AppText(
+            level: AppTextLevel.L,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20, color: Colors.grey.shade600),
+            text: subTitle,
+            color: AppColors.instance.dark25,
+            maxLines: 2,
           ),
-          const SizedBox(height: 10),
+          VSpace.small12(),
         ],
       ),
     );

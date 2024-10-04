@@ -10,7 +10,6 @@ class Email extends FormzInput<String, EmailValidationError> {
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
   );
 
-  /// TODO : explain about all regex
   /// This validator method checks for, if TextField is empty and if it matches with emailRegExp.
   @override
   EmailValidationError? validator(String? value) {

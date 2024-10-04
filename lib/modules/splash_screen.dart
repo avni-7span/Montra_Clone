@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    navigateToAppropriateRoute();
+    // navigateToAppropriateRoute();
+    context.pushRoute(const OnboardingRoute());
   }
 
   Future<void> navigateToAppropriateRoute() async {

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
+import 'package:montra_clone/app_ui/widgets/atoms/padding.dart';
+import 'package:montra_clone/app_ui/widgets/atoms/spacing.dart';
 import 'package:montra_clone/core/widgets/button_title.dart';
 import 'package:montra_clone/core/widgets/custom_elevated_button.dart';
 import 'package:montra_clone/modules/onboarding/cubit/onboarding_cubit.dart';
@@ -32,7 +34,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       backgroundColor: AppColors.instance.light100,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(Insets.xsmall8),
         child: Column(
           children: [
             Expanded(
@@ -65,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 );
               },
             ),
-            const SizedBox(height: 25),
+            VSpace.large24(),
             CustomElevatedButton(
               buttonLabel: const ButtonTitle(
                 isPurple: true,
@@ -76,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 await context.router.replace(const SignupRoute());
               },
             ),
-            const SizedBox(height: 20),
+            VSpace.medium16(),
             CustomElevatedButton(
               buttonLabel: const ButtonTitle(
                 isPurple: false,
@@ -87,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 await context.router.replace(const LoginRoute());
               },
             ),
-            const SizedBox(height: 20),
+            VSpace.large24(),
           ],
         ),
       ),
