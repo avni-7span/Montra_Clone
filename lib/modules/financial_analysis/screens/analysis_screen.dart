@@ -6,7 +6,6 @@ import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/fire_store_queries.dart';
 import 'package:montra_clone/modules/financial_analysis/bloc/financial_analysis_bloc.dart';
 import 'package:montra_clone/modules/financial_analysis/widgets/filter_row.dart';
-import 'package:montra_clone/modules/financial_analysis/widgets/graph_container.dart';
 import 'package:montra_clone/modules/financial_analysis/widgets/income_expense_filter.dart';
 import 'package:montra_clone/modules/home/widgets/budget_card.dart';
 
@@ -71,8 +70,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 ),
                 const SizedBox(height: 10),
                 state.isAnalysisBudgetType
-                    ? _TotalBudget(
-                        totalBudget: '\u{20B9}${state.totalAmount ?? 0}')
+                    ? _TotalBudget(totalBudget: '\u{20B9}${state.totalAmount}')
                     : const SizedBox(height: 32),
                 const SizedBox(height: 10),
                 // GraphContainer(

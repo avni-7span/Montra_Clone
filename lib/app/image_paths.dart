@@ -33,6 +33,7 @@ const String logoutIconPath = 'assets/icons/profile_icons/logout.svg';
 const String settingsIconPath = 'assets/icons/profile_icons/settings.svg';
 const String walletIconPath = 'assets/icons/profile_icons/wallet.svg';
 const String routeIconPath = 'assets/icons/profile_icons/route_icon.svg';
+const String arrowDown = 'assets/icons/profile_icons/arrow_down.svg';
 
 /// App logo
 const String appLogo = 'assets/icons/app_logo/montra.png';
@@ -53,3 +54,11 @@ const String budgetInactiveIcon =
     'assets/icons/financial_report_icons/budget_inactive_icon.svg';
 const String categoryInactiveIcon =
     'assets/icons/financial_report_icons/category_inactive_icon.svg';
+
+/// expense income icons
+const String expenseIcon = 'assets/icons/expense_income_icons/expense.svg';
+const String incomeIcon = 'assets/icons/expense_income_icons/income.svg';
+const String expenseRoundedIcon =
+    'assets/icons/expense_income_icons/expense_rounded.svg';
+const String incomeRoundedIcon =
+    'assets/icons/expense_income_icons/income_rounded.svg';

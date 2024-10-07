@@ -14,8 +14,10 @@ final class Insets {
   static const double zero = 0;
   static const double xxsmall4 = scale * 4;
   static const double xsmall8 = scale * 8;
+  static const double small10 = scale * 10;
   static const double small12 = scale * 12;
   static const double medium16 = scale * 16;
+  static const double medium18 = scale * 18;
   static const double medium20 = scale * 20;
   static const double large24 = scale * 24;
   static const double xlarge32 = scale * 32;

@@ -4,168 +4,187 @@ import 'package:flutter/widgets.dart';
 
 class AppColorsData extends Equatable {
   const AppColorsData({
-    required this.black,
-    required this.white,
-    required this.foreground,
-    required this.background,
-    required this.error,
-    required this.info100,
-    required this.success50,
-    required this.success500,
-    required this.success600,
-    required this.danger50,
-    required this.danger500,
-    required this.danger700,
-    required this.warning500,
-    required this.warning600,
-    required this.primary50,
-    required this.primary100,
-    required this.primary400,
-    required this.primary500,
-    required this.primary600,
-    required this.primary900,
-    required this.primary1000,
-    required this.grey50,
-    required this.grey100,
-    required this.grey200,
-    required this.grey300,
-    required this.grey400,
-    required this.grey500,
-    required this.grey600,
-    required this.grey700,
-    required this.grey800,
+    required this.primary,
+    required this.violet80,
+    required this.violet60,
+    required this.violet40,
+    required this.violet20,
+    required this.yellow100,
+    required this.yellow80,
+    required this.yellow60,
+    required this.yellow40,
+    required this.yellow20,
+    required this.blue100,
+    required this.blue80,
+    required this.blue60,
+    required this.blue40,
+    required this.blue20,
+    required this.red100,
+    required this.red80,
+    required this.red60,
+    required this.red40,
+    required this.red20,
+    required this.green100,
+    required this.green80,
+    required this.green60,
+    required this.green40,
+    required this.green20,
+    required this.dark100,
+    required this.dark75,
+    required this.dark50,
+    required this.dark25,
+    required this.light100,
+    required this.light80,
+    required this.light60,
+    required this.light40,
+    required this.light20,
   });
 
   factory AppColorsData.light() => const AppColorsData(
-        foreground: Color(0xffffffff),
-        black: Color(0xff000000),
-        white: Color(0xffffffff),
-        error: Color(0xffff0000),
-        grey50: Color(0xffFAFAFA),
-        grey100: Color(0xffF4F4F5),
-        grey200: Color(0xffE4E4E7),
-        grey300: Color(0xffD1D5DB),
-        grey400: Color(0xffA1A1AA),
-        grey500: Color(0xff71717A),
-        grey600: Color(0xff52525B),
-        grey700: Color(0xff3F3F46),
-        grey800: Color(0xff27272A),
-        background: Color(0xFFF0F4F7),
-        info100: Color(0xFFDBEAFE),
-        primary50: Color(0xFFF5F6FF),
-        primary100: Color(0xFFD5DEFE),
-        primary400: Color(0xFF637DFE),
-        primary500: Color(0xFF304FFE),
-        primary600: Color(0xFF233BDA),
-        primary900: Color(0xFF091379),
-        primary1000: Color(0xFF00053B),
-        success50: Color(0xffF0FDF4),
-        success500: Color(0xff22C55E),
-        success600: Color(0xff16A34A),
-        danger50: Color(0xffFEF2F2),
-        danger500: Color(0xffEF4444),
-        danger700: Color(0xffB91C1C),
-        warning500: Color(0xffEAB308),
-        warning600: Color(0xffEAB308),
+        primary: Color(0xff7F3DFF),
+        violet80: Color(0xff8F57FF),
+        violet60: Color(0xffB18AFF),
+        violet40: Color(0xffD3BDFF),
+        violet20: Color(0xffEEE5FF),
+        yellow100: Color(0xffFCAC12),
+        yellow80: Color(0xffFCBB3C),
+        yellow60: Color(0xffFCCC6F),
+        yellow40: Color(0xffFCDDA1),
+        yellow20: Color(0xffFCEED4),
+        blue100: Color(0xff0077FF),
+        blue80: Color(0xff248AFF),
+        blue60: Color(0xff57A5FF),
+        blue40: Color(0xff8AC0FF),
+        blue20: Color(0xffBDDCFF),
+        red100: Color(0xffFD3C4A),
+        red80: Color(0xffFD5662),
+        red60: Color(0xffFD6F7A),
+        red40: Color(0xffFDA2A9),
+        red20: Color(0xffFDD5D7),
+        green100: Color(0xff00A86B),
+        green80: Color(0xff2AB784),
+        green60: Color(0xff65D1AA),
+        green40: Color(0xff93EACA),
+        green20: Color(0xffCFFAEA),
+        dark100: Color(0xff0D0E0F),
+        dark75: Color(0xff161719),
+        dark50: Color(0xff464A4D),
+        dark25: Color(0xff7A7E80),
+        light100: Color(0xffFFFFFF),
+        light80: Color(0xffFBFBFB),
+        light60: Color(0xffF7F9FA),
+        light40: Color(0xffF2F4F5),
+        light20: Color(0xffE3E5E5),
       );
-
   factory AppColorsData.dark() => const AppColorsData(
-        foreground: Color(0xffffffff),
-        black: Color(0xff000000),
-        white: Color(0xffffffff),
-        error: Color(0xffff0000),
-        grey50: Color(0xffFAFAFA),
-        grey100: Color(0xffF4F4F5),
-        grey200: Color(0xffE4E4E7),
-        grey300: Color(0xffD1D5DB),
-        grey400: Color(0xffA1A1AA),
-        grey500: Color(0xff71717A),
-        grey600: Color(0xff52525B),
-        grey700: Color(0xff3F3F46),
-        grey800: Color(0xff27272A),
-        background: Color(0xFFF0F4F7),
-        info100: Color(0xFFDBEAFE),
-        primary50: Color(0xFFF5F6FF),
-        primary100: Color(0xFFD5DEFE),
-        primary400: Color(0xFF637DFE),
-        primary500: Color(0xFF304FFE),
-        primary600: Color(0xFF233BDA),
-        success50: Color(0xffF0FDF4),
-        success600: Color(0xff16A34A),
-        primary900: Color(0xFF091379),
-        primary1000: Color(0xFF00053B),
-        danger50: Color(0xffFEF2F2),
-        danger500: Color(0xffEF4444),
-        danger700: Color(0xffB91C1C),
-        warning500: Color(0xffEAB308),
-        warning600: Color(0xffEAB308),
-        success500: Color(0xff22C55E),
+        primary: Color(0xff7F3DFF),
+        violet80: Color(0xff8F57FF),
+        violet60: Color(0xffB18AFF),
+        violet40: Color(0xffD3BDFF),
+        violet20: Color(0xffEEE5FF),
+        yellow100: Color(0xffFCAC12),
+        yellow80: Color(0xffFCBB3C),
+        yellow60: Color(0xffFCCC6F),
+        yellow40: Color(0xffFCDDA1),
+        yellow20: Color(0xffFCEED4),
+        blue100: Color(0xff0077FF),
+        blue80: Color(0xff248AFF),
+        blue60: Color(0xff57A5FF),
+        blue40: Color(0xff8AC0FF),
+        blue20: Color(0xffBDDCFF),
+        red100: Color(0xffFD3C4A),
+        red80: Color(0xffFD5662),
+        red60: Color(0xffFD6F7A),
+        red40: Color(0xffFDA2A9),
+        red20: Color(0xffFDD5D7),
+        green100: Color(0xff00A86B),
+        green80: Color(0xff2AB784),
+        green60: Color(0xff65D1AA),
+        green40: Color(0xff93EACA),
+        green20: Color(0xffCFFAEA),
+        dark100: Color(0xff0D0E0F),
+        dark75: Color(0xff161719),
+        dark50: Color(0xff464A4D),
+        dark25: Color(0xff7A7E80),
+        light100: Color(0xffFFFFFF),
+        light80: Color(0xffFBFBFB),
+        light60: Color(0xffF7F9FA),
+        light40: Color(0xffF2F4F5),
+        light20: Color(0xffE3E5E5),
       );
 
-  final Color black;
-  final Color white;
-  final Color background;
-  final Color foreground;
-  final Color error;
-  final Color info100;
-  final Color success50;
-  final Color danger50;
-  final Color danger500;
-  final Color danger700;
-  final Color warning500;
-  final Color warning600;
-  final Color success500;
-  final Color success600;
-  final Color primary50;
-  final Color primary100;
-  final Color primary400;
-  final Color primary500;
-  final Color primary600;
-  final Color primary900;
-  final Color primary1000;
-  final Color grey50;
-  final Color grey100;
-  final Color grey200;
-  final Color grey300;
-  final Color grey400;
-  final Color grey500;
-  final Color grey600;
-  final Color grey700;
-  final Color grey800;
+  final Color primary;
+  final Color violet80;
+  final Color violet60;
+  final Color violet40;
+  final Color violet20;
+  final Color yellow100;
+  final Color yellow80;
+  final Color yellow60;
+  final Color yellow40;
+  final Color yellow20;
+  final Color blue100;
+  final Color blue80;
+  final Color blue60;
+  final Color blue40;
+  final Color blue20;
+  final Color red100;
+  final Color red80;
+  final Color red60;
+  final Color red40;
+  final Color red20;
+  final Color green100;
+  final Color green80;
+  final Color green60;
+  final Color green40;
+  final Color green20;
+  final Color dark100;
+  final Color dark75;
+  final Color dark50;
+  final Color dark25;
+  final Color light100;
+  final Color light80;
+  final Color light60;
+  final Color light40;
+  final Color light20;
 
   @override
   List<Object> get props {
     return [
-      black,
-      white,
-      background,
-      foreground,
-      error,
-      info100,
-      success50,
-      danger50,
-      danger500,
-      danger700,
-      warning500,
-      warning600,
-      success500,
-      success600,
-      primary50,
-      primary100,
-      primary400,
-      primary500,
-      primary600,
-      primary900,
-      primary1000,
-      grey50,
-      grey100,
-      grey200,
-      grey300,
-      grey400,
-      grey500,
-      grey600,
-      grey700,
-      grey800,
+      primary,
+      violet80,
+      violet60,
+      violet40,
+      violet20,
+      yellow100,
+      yellow80,
+      yellow60,
+      yellow40,
+      yellow20,
+      blue100,
+      blue80,
+      blue60,
+      blue40,
+      blue20,
+      red100,
+      red80,
+      red60,
+      red40,
+      red20,
+      green100,
+      green80,
+      green60,
+      green40,
+      green20,
+      dark100,
+      dark75,
+      dark50,
+      dark25,
+      light100,
+      light80,
+      light60,
+      light40,
+      light20,
     ];
   }
 }

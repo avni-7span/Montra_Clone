@@ -17,5 +17,8 @@ final class AppBorderRadius {
   static const double xsmall4 = scale * 4;
   static const double small8 = scale * 8;
   static const double medium16 = scale * 16;
+  static const double medium20 = scale * 20;
+  static const double medium24 = scale * 24;
+  static const double medium28 = scale * 28;
   static const double big44 = scale * 44;
 }

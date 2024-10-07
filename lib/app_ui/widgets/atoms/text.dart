@@ -1,21 +1,17 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/widgets.dart';
-import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app_ui/theme/theme.dart';
 
 enum AppTextLevel {
-  title,
-  subTitle,
-  paragraph1,
-  paragraph2,
-  s,
-  xsSemiBold,
-  sSemiBold,
-  XL,
-  L,
-  brand,
-  regular10
+  titleX64,
+  title32,
+  title24,
+  title18,
+  regular16,
+  regular14,
+  small13,
+  tiny12,
 }
 
 class AppText extends StatelessWidget {
@@ -25,13 +21,12 @@ class AppText extends StatelessWidget {
     this.color,
     this.fontSize,
     this.maxLines,
-    this.level = AppTextLevel.paragraph1,
+    this.level = AppTextLevel.regular14,
     this.isUnderLine,
     this.style,
     this.textAlign,
   });
-
-  const AppText.subTitle10({
+  const AppText.titleX({
     super.key,
     this.text,
     this.color,
@@ -40,9 +35,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.subTitle;
+  }) : level = AppTextLevel.titleX64;
 
-  const AppText.regular10({
+  const AppText.title32({
     super.key,
     this.text,
     this.color,
@@ -51,9 +46,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.regular10;
+  }) : level = AppTextLevel.title32;
 
-  const AppText.paragraph({
+  const AppText.title24({
     super.key,
     this.text,
     this.color,
@@ -62,9 +57,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.paragraph1;
+  }) : level = AppTextLevel.title24;
 
-  const AppText.base({
+  const AppText.title18({
     super.key,
     this.text,
     this.color,
@@ -73,9 +68,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.title;
+  }) : level = AppTextLevel.title18;
 
-  const AppText.xs({
+  const AppText.regular16({
     super.key,
     this.text,
     this.color,
@@ -84,9 +79,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.paragraph1;
+  }) : level = AppTextLevel.regular16;
 
-  const AppText.xsRegular({
+  const AppText.regular14({
     super.key,
     this.text,
     this.color,
@@ -95,9 +90,9 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.paragraph2;
+  }) : level = AppTextLevel.regular14;
 
-  const AppText.sSemiBold({
+  const AppText.small13({
     super.key,
     this.text,
     this.color,
@@ -106,21 +101,10 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.sSemiBold;
-
-  const AppText.L({
-    super.key,
-    this.text,
-    this.color,
-    this.fontSize,
-    this.maxLines,
-    this.isUnderLine,
-    this.style,
-    this.textAlign,
-  }) : level = AppTextLevel.L;
+  }) : level = AppTextLevel.small13;
 
   // ignore: non_constant_identifier_names
-  const AppText.XL({
+  const AppText.tiny12({
     super.key,
     this.text,
     this.color,
@@ -129,41 +113,7 @@ class AppText extends StatelessWidget {
     this.isUnderLine,
     this.style,
     this.textAlign,
-  }) : level = AppTextLevel.XL;
-
-  const AppText.xsSemiBold({
-    super.key,
-    this.text,
-    this.color,
-    this.fontSize,
-    this.maxLines,
-    this.isUnderLine,
-    this.style,
-    this.textAlign,
-  }) : level = AppTextLevel.xsSemiBold;
-
-  const AppText.s({
-    super.key,
-    this.text,
-    this.color,
-    this.fontSize,
-    this.maxLines,
-    this.isUnderLine,
-    this.style,
-    this.textAlign,
-  }) : level = AppTextLevel.s;
-
-  /// Use this text in case you want to write something in Vepaar logo's font style
-  const AppText.brand({
-    super.key,
-    this.text,
-    this.color,
-    this.fontSize,
-    this.maxLines,
-    this.isUnderLine,
-    this.style,
-    this.textAlign,
-  }) : level = AppTextLevel.brand;
+  }) : level = AppTextLevel.tiny12;
 
   final String? text;
   final AppTextLevel level;
@@ -177,52 +127,25 @@ class AppText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = AppTheme.maybeOf(context);
-    final color = this.color ??
-        () {
-          switch (level) {
-            case AppTextLevel.regular10:
-              return theme?.colors.grey600;
-            case AppTextLevel.paragraph1:
-            case AppTextLevel.xsSemiBold:
-              return theme?.colors.grey500;
-            case AppTextLevel.paragraph2:
-            case AppTextLevel.sSemiBold:
-              return theme?.colors.grey700;
-            case AppTextLevel.subTitle:
-              return theme?.colors.grey500;
-            case AppTextLevel.title:
-            case AppTextLevel.s:
-            case AppTextLevel.L:
-            case AppTextLevel.XL:
-              return AppColors.instance.dark100;
-            case AppTextLevel.brand:
-              return theme?.colors.black;
-          }
-        }();
+
     final style = () {
       switch (level) {
-        case AppTextLevel.regular10:
-          return theme?.typography.regular10;
-        case AppTextLevel.title:
-          return theme?.typography.title;
-        case AppTextLevel.subTitle:
-          return theme?.typography.subTitle10;
-        case AppTextLevel.paragraph1:
-          return theme?.typography.paragraph1;
-        case AppTextLevel.paragraph2:
-          return theme?.typography.xsRegular;
-        case AppTextLevel.s:
-          return theme?.typography.S;
-        case AppTextLevel.xsSemiBold:
-          return theme?.typography.xsSemiBold;
-        case AppTextLevel.sSemiBold:
-          return theme?.typography.sSemiBold;
-        case AppTextLevel.L:
-          return theme?.typography.L;
-        case AppTextLevel.XL:
-          return theme?.typography.XL;
-        case AppTextLevel.brand:
-          return theme?.typography.brand;
+        case AppTextLevel.titleX64:
+          return theme?.typography.titleX64;
+        case AppTextLevel.title32:
+          return theme?.typography.title32;
+        case AppTextLevel.title24:
+          return theme?.typography.title24;
+        case AppTextLevel.title18:
+          return theme?.typography.title18;
+        case AppTextLevel.regular16:
+          return theme?.typography.regular16;
+        case AppTextLevel.regular14:
+          return theme?.typography.regular14;
+        case AppTextLevel.small13:
+          return theme?.typography.small13;
+        case AppTextLevel.tiny12:
+          return theme?.typography.tiny12;
       }
     }();
     return Text(

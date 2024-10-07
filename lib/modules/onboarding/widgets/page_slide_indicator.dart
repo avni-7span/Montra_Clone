@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/app_ui/widgets/atoms/atoms.dart';
+import 'package:montra_clone/app_ui/widgets/atoms/border_radius.dart';
+import 'package:montra_clone/app_ui/widgets/atoms/padding.dart';
 
 class PageSlideIndicator extends StatelessWidget {
   const PageSlideIndicator({
