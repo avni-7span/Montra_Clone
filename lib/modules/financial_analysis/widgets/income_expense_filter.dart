@@ -16,14 +16,16 @@ class IncomeExpenseFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Container(
       height: 56,
-      width: double.infinity,
+      width: size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: AppColors.instance.light20.withOpacity(0.5),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SubButton(
             buttonLabel: 'Expense',
@@ -73,7 +75,7 @@ class SubButton extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(5),
         height: 56,
-        width: size.width / 2.3,
+        width: size.width / 2.4,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: buttonColor,

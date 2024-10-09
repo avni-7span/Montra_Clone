@@ -8,16 +8,13 @@ class BudgetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Budget Screen, Under Construction !',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: AppColors.instance.primary,
-            fontSize: 30,
-          ),
-        ),
+      extendBody: true,
+      body: Container(
+        height: size.height * (0.25),
+        width: double.infinity,
+        color: AppColors.instance.primary,
       ),
     );
   }

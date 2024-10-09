@@ -31,6 +31,7 @@ class FinancialReportScreen extends StatelessWidget
         return AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: Scaffold(
+            // extendBody: true,
             backgroundColor: Colors.transparent,
             body: SafeArea(
               child: Column(

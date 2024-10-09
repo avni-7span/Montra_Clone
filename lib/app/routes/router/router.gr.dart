@@ -10,8 +10,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i19;
 import 'package:flutter/material.dart' as _i20;
-import 'package:montra_clone/modules/financial_analysis/screens/analysis_screen.dart'
-    as _i1;
 import 'package:montra_clone/modules/authentication/login/screens/login_screen.dart'
     as _i10;
 import 'package:montra_clone/modules/authentication/signup/screens/signup_screen.dart'
@@ -20,11 +18,13 @@ import 'package:montra_clone/modules/authentication/signup/screens/verification_
     as _i17;
 import 'package:montra_clone/modules/bottom_navigation_bar/screens/bottom_navigation_bar_screen.dart'
     as _i2;
-import 'package:montra_clone/modules/budget/budget_screen.dart' as _i3;
+import 'package:montra_clone/modules/budget/screens/budget_screen.dart' as _i3;
 import 'package:montra_clone/modules/credential_recover/screens/forgot_password_screen.dart'
     as _i7;
 import 'package:montra_clone/modules/expense_tracking/screens/expense_tracker_screen.dart'
     as _i5;
+import 'package:montra_clone/modules/financial_analysis/screens/analysis_screen.dart'
+    as _i1;
 import 'package:montra_clone/modules/financial_report/screens/financial_report_screen.dart'
     as _i6;
 import 'package:montra_clone/modules/home/screens/home_screen.dart' as _i8;
@@ -58,7 +58,7 @@ class AnalysisRoute extends _i19.PageRouteInfo<void> {
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return const _i1.AnalysisScreen();
+      return _i19.WrappedRoute(child: const _i1.AnalysisScreen());
     },
   );
 }
@@ -77,7 +77,7 @@ class BottomNavigationBarRoute extends _i19.PageRouteInfo<void> {
   static _i19.PageInfo page = _i19.PageInfo(
     name,
     builder: (data) {
-      return const _i2.BottomNavigationBarScreen();
+      return _i19.WrappedRoute(child: const _i2.BottomNavigationBarScreen());
     },
   );
 }

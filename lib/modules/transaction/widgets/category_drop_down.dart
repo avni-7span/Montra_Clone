@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/app/image_paths.dart';
 
 class CategoryDropDown extends StatelessWidget {
   const CategoryDropDown({
@@ -22,10 +20,9 @@ class CategoryDropDown extends StatelessWidget {
         : ['Salary', 'Rental Income', 'Interest'];
     return DropdownButtonFormField<String>(
       value: selectedValue,
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         hintText: 'Choose Category',
         border: InputBorder.none,
-        suffixIcon: SvgPicture.asset(arrowDown),
       ),
       items: options.map((String option) {
         return DropdownMenuItem<String>(

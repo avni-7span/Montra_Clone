@@ -14,7 +14,7 @@ class FilterRow extends StatelessWidget {
   final bool isBudgetType;
   final VoidCallback onBudgetTypeTap;
   final VoidCallback onCategoryTypeTap;
-  final GestureTapDownCallback onFilterTap;
+  final Function(String? value) onFilterTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,9 @@ class FilterRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         FilterDropDown(
-          onChanged: (String? value) {},
+          onChanged: onFilterTap,
           selectedValue: 'Month',
         ),
-        // FilterContainer(
-        //   onFilterTap: onFilterTap,
-        // ),
         AnalysisButton(
           onBudgetTypeTap: onBudgetTypeTap,
           onCategoryTypeTap: onCategoryTypeTap,
@@ -37,38 +34,6 @@ class FilterRow extends StatelessWidget {
     );
   }
 }
-
-// class FilterContainer extends StatelessWidget {
-//   const FilterContainer({
-//     super.key,
-//     required this.onFilterTap,
-//   });
-//
-//   final GestureTapDownCallback onFilterTap;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTapDown: onFilterTap,
-//       child: Container(
-//         height: 40,
-//         width: 96,
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(40),
-//           border: Border.all(
-//             color: AppColors.instance.dark25,
-//           ),
-//         ),
-//         child: Center(
-//           child: Text(
-//             'Month',
-//             style: TextStyle(color: AppColors.instance.primary, fontSize: 18),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class FilterDropDown extends StatelessWidget {
   const FilterDropDown({
@@ -83,30 +48,28 @@ class FilterDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 42,
-      width: 100,
-      child: Center(
-        child: DropdownButtonFormField<String>(
-          isExpanded: true,
-          value: selectedValue,
-          decoration: InputDecoration(
-            hintText: selectedValue,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
+      height: 50,
+      width: 105,
+      child: DropdownButtonFormField<String>(
+        isExpanded: true,
+        value: selectedValue,
+        decoration: InputDecoration(
+          hintText: selectedValue,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(6),
           ),
-          items: ['Week', 'Month', 'Year'].map((String option) {
-            return DropdownMenuItem<String>(
-              alignment: Alignment.center,
-              value: option,
-              child: Text(
-                option,
-                style: TextStyle(color: AppColors.instance.dark25),
-              ),
-            );
-          }).toList(),
-          onChanged: onChanged,
         ),
+        items: ['Week', 'Month', 'Year'].map((String option) {
+          return DropdownMenuItem<String>(
+            alignment: Alignment.center,
+            value: option,
+            child: Text(
+              option,
+              style: TextStyle(color: AppColors.instance.dark25),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
       ),
     );
   }

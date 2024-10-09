@@ -27,3 +27,12 @@ class FetchDataListEvent extends FinancialAnalysisEvent {
   @override
   List<Object?> get props => [];
 }
+
+class SetFilterTypeEvent extends FinancialAnalysisEvent {
+  const SetFilterTypeEvent({required this.filterName});
+
+  final String? filterName;
+
+  @override
+  List<Object?> get props => [filterName];
+}
