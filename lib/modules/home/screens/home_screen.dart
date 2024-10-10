@@ -5,8 +5,8 @@ import 'package:montra_clone/core/utils/fire_store_queries.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/modules/home/bloc/home_bloc.dart';
-import 'package:montra_clone/modules/home/widgets/budget_card.dart';
-import 'package:montra_clone/modules/home/widgets/budget_container.dart';
+import 'package:montra_clone/modules/home/widgets/expense_tracker_card.dart';
+import 'package:montra_clone/modules/home/widgets/income_expense_container.dart';
 import 'package:montra_clone/modules/home/widgets/filter_row.dart';
 import 'package:montra_clone/modules/home/widgets/view_all_data_raw.dart';
 
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           body: Column(
             children: [
-              BudgetContainer(
+              IncomeExpenseContainer(
                 totalBudget: state.totalAccountBalance,
                 income: state.totalIncome,
                 expense: state.totalExpense,
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 itemCount: state.transactionList.length,
                                 itemBuilder: (context, index) {
-                                  return BudgetCard(
+                                  return ExpenseTrackerCard(
                                     category:
                                         state.transactionList[index].category,
                                     isExpense:

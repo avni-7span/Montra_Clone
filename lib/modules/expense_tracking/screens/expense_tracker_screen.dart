@@ -10,7 +10,7 @@ import 'package:montra_clone/core/widgets/custom_text_field.dart';
 import 'package:montra_clone/core/widgets/error_text.dart';
 import 'package:montra_clone/modules/expense_tracking/bloc/expense_tracker_bloc.dart';
 import 'package:montra_clone/modules/expense_tracking/models/transaction_model.dart';
-import 'package:montra_clone/modules/expense_tracking/widgets/amount_text_field.dart';
+import 'package:montra_clone/core/widgets/amount_text_field.dart';
 import 'package:montra_clone/modules/expense_tracking/widgets/custom_drop_down_field.dart';
 import 'package:montra_clone/modules/expense_tracking/widgets/delete_alert_dialogue.dart';
 import 'package:montra_clone/modules/expense_tracking/widgets/delete_button.dart';

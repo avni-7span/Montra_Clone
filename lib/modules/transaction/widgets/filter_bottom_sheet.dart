@@ -39,7 +39,7 @@ class FilterBottomSheet extends StatelessWidget {
           const SizedBox(height: 20),
           Row(children: [Text('Category', style: textStyle)]),
           const SizedBox(height: 15),
-          const CustomCategoryDropDown(),
+          const _CustomCategoryDropDown(),
           const SizedBox(height: 40),
           CustomElevatedButton(
             buttonLabel:
@@ -178,8 +178,8 @@ class SortByRow extends StatelessWidget {
   }
 }
 
-class CustomCategoryDropDown extends StatelessWidget {
-  const CustomCategoryDropDown({super.key});
+class _CustomCategoryDropDown extends StatelessWidget {
+  const _CustomCategoryDropDown({super.key});
 
   @override
   Widget build(BuildContext context) {

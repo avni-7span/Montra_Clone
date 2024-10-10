@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
@@ -46,12 +47,12 @@ class SettingScreen extends StatelessWidget implements AutoRouteWrapper {
             CustomListTileTwo(
               title: 'About',
               onTap: () {},
-              trailing: Image.asset(routeIconPath),
+              trailing: SvgPicture.asset(routeIconPath),
             ),
             CustomListTileTwo(
               title: 'Help',
               onTap: () {},
-              trailing: Image.asset(routeIconPath),
+              trailing: SvgPicture.asset(routeIconPath),
             ),
           ],
         ));

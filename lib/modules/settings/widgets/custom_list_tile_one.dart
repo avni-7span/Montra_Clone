@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 
@@ -33,7 +34,7 @@ class CustomListTileOne extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Image.asset(routeIconPath),
+            SvgPicture.asset(routeIconPath),
           ],
         ));
   }

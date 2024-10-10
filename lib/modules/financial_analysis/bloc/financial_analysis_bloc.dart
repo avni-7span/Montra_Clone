@@ -63,7 +63,8 @@ class FinancialAnalysisBloc
       } else if (state.dataFilterType == DataFilterType.year) {
         querySnapshot = await FireStoreQueries.instance.getThisYearData();
       } else {
-        querySnapshot = await FireStoreQueries.instance.getThisMonthData();
+        querySnapshot =
+            await FireStoreQueries.instance.getThisMonthExpenseIncomeData();
       }
       final List<TransactionModel> dataList = [];
       final List<ChartDataModel> amountList = [];

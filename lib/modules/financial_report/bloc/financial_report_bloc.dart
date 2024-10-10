@@ -30,7 +30,7 @@ class FinancialReportBloc
     try {
       emit(state.copyWith(status: FinancialReportStateStatus.loading));
       final querySnapshotData =
-          await FireStoreQueries.instance.getThisMonthData();
+          await FireStoreQueries.instance.getThisMonthExpenseIncomeData();
       final List<QueryDocumentSnapshot<Map<String, dynamic>>> incomeQueryList =
           [];
       final List<QueryDocumentSnapshot<Map<String, dynamic>>> expenseQueryList =

@@ -25,9 +25,12 @@ class CategoryDropDown extends StatelessWidget {
       value: selectedValue,
       decoration: InputDecoration(
         hintText: 'Choose Category',
-        contentPadding: EdgeInsets.all(Insets.medium16),
+        contentPadding: const EdgeInsets.all(Insets.medium16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppBorderRadius.medium16),
+          // borderSide: BorderSide(
+          //   color: AppColors.instance.light20.withOpacity(0.5),
+          // ),
           borderSide: BorderSide.none,
         ),
         filled: true,

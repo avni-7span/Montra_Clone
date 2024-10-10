@@ -187,7 +187,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     try {
       emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
-      final querySnapshot = await FireStoreQueries.instance.getThisMonthData();
+      final querySnapshot =
+          await FireStoreQueries.instance.getThisMonthExpenseIncomeData();
       final list = querySnapshot
           .map(
             (docSnapshot) => TransactionModel.fromFireStore(

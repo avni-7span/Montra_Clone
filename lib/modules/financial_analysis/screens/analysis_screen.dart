@@ -10,7 +10,7 @@ import 'package:montra_clone/modules/financial_analysis/widgets/donught_graph_co
 import 'package:montra_clone/modules/financial_analysis/widgets/filter_row.dart';
 import 'package:montra_clone/modules/financial_analysis/widgets/graph_container.dart';
 import 'package:montra_clone/modules/financial_analysis/widgets/income_expense_filter.dart';
-import 'package:montra_clone/modules/home/widgets/budget_card.dart';
+import 'package:montra_clone/modules/home/widgets/expense_tracker_card.dart';
 
 @RoutePage()
 class AnalysisScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -177,7 +177,7 @@ class _TransactionList extends StatelessWidget {
                         )
                       : ListView.builder(
                           itemCount: list.length,
-                          itemBuilder: (context, index) => BudgetCard(
+                          itemBuilder: (context, index) => ExpenseTrackerCard(
                             category: list[index].category,
                             isExpense: list[index].isExpense,
                             amount: list[index].transactionAmount,

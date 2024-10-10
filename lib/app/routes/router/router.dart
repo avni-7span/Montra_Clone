@@ -45,5 +45,8 @@ class AppRouter extends RootStackRouter {
         /// SubRoutes of transaction route
         AutoRoute(page: FinancialReportRoute.page),
         AutoRoute(page: AnalysisRoute.page),
+
+        /// SubRoutes of budget route
+        AutoRoute(page: CreateBudgetRoute.page),
       ];
 }

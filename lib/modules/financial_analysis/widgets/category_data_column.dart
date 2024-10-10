@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
-import 'package:montra_clone/modules/financial_analysis/widgets/category_chip.dart';
+import 'package:montra_clone/core/widgets/category_chip.dart';
 
 class CategoryDataColumn extends StatelessWidget {
   const CategoryDataColumn({

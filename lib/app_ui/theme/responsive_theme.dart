@@ -1,7 +1,5 @@
 import 'dart:ui' as ui;
 import 'package:flutter/widgets.dart';
-import 'package:montra_clone/app_ui/theme/data/colors.dart';
-import 'package:montra_clone/app_ui/theme/data/data.dart';
 import 'package:montra_clone/app_ui/theme/theme.dart';
 
 enum AppThemeColorMode {

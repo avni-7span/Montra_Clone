@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 
-class BudgetCard extends StatelessWidget {
-  const BudgetCard({
+class ExpenseTrackerCard extends StatelessWidget {
+  const ExpenseTrackerCard({
     super.key,
     required this.category,
     required this.isExpense,
@@ -41,7 +41,7 @@ class BudgetCard extends StatelessWidget {
             Container(
               height: 70,
               width: 70,
-              padding: EdgeInsets.all(18),
+              padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 color: !isExpense
                     ? AppColors.instance.green20

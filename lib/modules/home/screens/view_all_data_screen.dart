@@ -5,7 +5,7 @@ import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/fire_store_queries.dart';
 import 'package:montra_clone/modules/home/bloc/home_bloc.dart';
-import 'package:montra_clone/modules/home/widgets/budget_card.dart';
+import 'package:montra_clone/modules/home/widgets/expense_tracker_card.dart';
 
 @RoutePage()
 class ViewAllDataScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -50,7 +50,7 @@ class ViewAllDataScreen extends StatelessWidget implements AutoRouteWrapper {
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 itemCount: state.transactionList.length,
                                 itemBuilder: (context, index) {
-                                  return BudgetCard(
+                                  return ExpenseTrackerCard(
                                     category:
                                         state.transactionList[index].category,
                                     isExpense:

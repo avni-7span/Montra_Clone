@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 import 'package:montra_clone/core/utils/fire_store_queries.dart';
-import 'package:montra_clone/modules/home/widgets/budget_card.dart';
+import 'package:montra_clone/modules/home/widgets/expense_tracker_card.dart';
 import 'package:montra_clone/modules/transaction/bloc/transaction_bloc.dart';
 import 'package:montra_clone/modules/transaction/widgets/current_filter_container.dart';
 import 'package:montra_clone/modules/transaction/widgets/filter_bottom_sheet.dart';
@@ -112,7 +112,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                       shrinkWrap: true,
                                       itemCount: state.transactionList.length,
                                       itemBuilder: (context, index) =>
-                                          BudgetCard(
+                                          ExpenseTrackerCard(
                                         category: state
                                             .transactionList[index].category,
                                         isExpense: state
@@ -159,7 +159,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                               height: 10,
                                             ),
                                             ...list.map(
-                                              (e) => BudgetCard(
+                                              (e) => ExpenseTrackerCard(
                                                 category: e.category,
                                                 isExpense: e.isExpense,
                                                 amount: e.transactionAmount,

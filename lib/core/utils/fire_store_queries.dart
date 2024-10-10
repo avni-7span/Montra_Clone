@@ -33,6 +33,11 @@ class FireStoreQueries {
     return db.collection('users').doc(currentUserId).collection('transaction');
   }
 
+  Future<CollectionReference<Map<String, dynamic>>>
+      getBudgetCollectionReference() async {
+    return db.collection('users').doc(currentUserId).collection('budget');
+  }
+
   /// Get documents created today
   Future<
       (
@@ -73,22 +78,36 @@ class FireStoreQueries {
     return querySnapshot.docs;
   }
 
-  /// Get documents created this month
-  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
-      getThisMonthData() async {
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getDataByMonth(
+      CollectionReference<Map<String, dynamic>> collectionRef) async {
     final now = DateTime.now();
     final startOfMonth =
         DateTime(now.year, now.month, 1); // 1 : day 1 (first day)
     DateTime endOfMonth = DateTime(now.year, now.month + 1, 1).subtract(
       const Duration(seconds: 1),
     );
-    final collectionReference = await getCollectionReference();
-    final querySnapshot = await collectionReference
+    final querySnapshot = await collectionRef
         .where('createdAt',
             isGreaterThanOrEqualTo: _getEpochFromDateTime(startOfMonth))
         .where('createdAt', isLessThan: _getEpochFromDateTime(endOfMonth))
         .get();
     return querySnapshot.docs;
+  }
+
+  /// Get this month budget data collection
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      getThisMonthBudgetData() async {
+    final collectionReference = await getBudgetCollectionReference();
+    final querySnapshot = await getDataByMonth(collectionReference);
+    return querySnapshot;
+  }
+
+  /// Get documents created this month in transaction collection
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>>
+      getThisMonthExpenseIncomeData() async {
+    final collectionReference = await getCollectionReference();
+    final querySnapshot = await getDataByMonth(collectionReference);
+    return querySnapshot;
   }
 
   /// Get documents created this month

@@ -82,7 +82,7 @@ class _CustomListTile extends StatelessWidget {
             width: 60,
             margin:
                 const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 10),
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: isLogoutTile
                   ? AppColors.instance.red20

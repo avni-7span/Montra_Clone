@@ -3,8 +3,8 @@ import 'package:montra_clone/app/app_colors.dart';
 import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/modules/home/widgets/price_card.dart';
 
-class BudgetContainer extends StatelessWidget {
-  const BudgetContainer({
+class IncomeExpenseContainer extends StatelessWidget {
+  const IncomeExpenseContainer({
     super.key,
     required this.totalBudget,
     required this.income,
