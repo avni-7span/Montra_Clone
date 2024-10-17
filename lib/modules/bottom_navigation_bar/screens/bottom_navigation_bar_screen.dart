@@ -24,58 +24,101 @@ class BottomNavigationBarScreen extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      homeIndex: 0,
       routes: const [
         HomeRoute(),
         TransactionRoute(),
+        EmptyRoute(),
         BudgetRoute(),
         ProfileRoute(),
       ],
+      homeIndex: 0,
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
-        return BlocBuilder<ConfigurationCubit, ConfigurationState>(
-          builder: (context, state) {
-            return Scaffold(
-              body: child,
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: tabsRouter.activeIndex,
-                onTap: tabsRouter.setActiveIndex,
-                selectedLabelStyle:
-                    TextStyle(color: AppColors.instance.primary),
-                unselectedLabelStyle: const TextStyle(color: Color(0xffC6C6C6)),
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: AppColors.instance.light100,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(homeInactiveIconPath),
-                    activeIcon: SvgPicture.asset(homeActiveIconPath),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(transactionInactiveIconPath),
-                    activeIcon: SvgPicture.asset(transactionActiveIconPath),
-                    label: 'Transaction',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(pieChartInactiveIconPath),
-                    activeIcon: SvgPicture.asset(pieChartActiveIconPath),
-                    label: 'Budget',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: SvgPicture.asset(userInactiveIconPath),
-                    activeIcon: SvgPicture.asset(userActiveIconPath),
-                    label: 'Profile',
-                  )
-                ],
-              ),
-              floatingActionButtonLocation: state.shouldShowFabInCentre
-                  ? FloatingActionButtonLocation.centerDocked
-                  : FloatingActionButtonLocation.endFloat,
-              floatingActionButton: const AddTransactionButton(),
-            );
-          },
+        return Scaffold(
+          extendBody: true,
+          body: child,
+          bottomNavigationBar: BottomAppBar(
+            color: AppColors.instance.light100,
+            shape: const CircularNotchedRectangle(),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                BottomAppBarItem(
+                  imagePath: tabsRouter.activeIndex == 0
+                      ? homeActiveIconPath
+                      : homeInactiveIconPath,
+                  label: 'Home',
+                  onTap: () {
+                    tabsRouter.setActiveIndex(0);
+                  },
+                ),
+                BottomAppBarItem(
+                  imagePath: tabsRouter.activeIndex == 1
+                      ? transactionActiveIconPath
+                      : transactionInactiveIconPath,
+                  label: 'Transaction',
+                  onTap: () {
+                    tabsRouter.setActiveIndex(1);
+                  },
+                ),
+                const SizedBox(width: 20),
+                BottomAppBarItem(
+                  imagePath: tabsRouter.activeIndex == 3
+                      ? pieChartActiveIconPath
+                      : pieChartInactiveIconPath,
+                  label: 'Budget',
+                  onTap: () {
+                    tabsRouter.setActiveIndex(3);
+                  },
+                ),
+                BottomAppBarItem(
+                  imagePath: tabsRouter.activeIndex == 4
+                      ? userActiveIconPath
+                      : userInactiveIconPath,
+                  label: 'Profile',
+                  onTap: () {
+                    tabsRouter.setActiveIndex(4);
+                  },
+                ),
+              ],
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: const AddTransactionButton(),
         );
       },
+    );
+  }
+}
+
+class BottomAppBarItem extends StatelessWidget {
+  const BottomAppBarItem({
+    super.key,
+    required this.imagePath,
+    required this.label,
+    required this.onTap,
+  });
+
+  final String imagePath;
+  final String label;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            imagePath,
+          ),
+          const SizedBox(height: 5),
+          Text(label),
+        ],
+      ),
     );
   }
 }

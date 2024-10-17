@@ -13,11 +13,28 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController animationController;
+  late final Animation<double> animation;
+
   @override
   void initState() {
     super.initState();
+    setAnimation();
     navigateToAppropriateRoute();
+  }
+
+  void setAnimation() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+    animation = Tween<double>(
+      begin: 0,
+      end: 1.5,
+    ).animate(animationController);
+    animationController.forward();
   }
 
   Future<void> navigateToAppropriateRoute() async {
@@ -41,24 +58,15 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppColors.instance.violet80,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * (0.3),
-            ),
-            Image.asset(
+        child: AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) => Transform.scale(
+            scale: animation.value,
+            child: Image.asset(
               appIcon,
-              height: 150,
-              width: 150,
+              height: 100,
             ),
-            const Spacer(),
-            const Text(
-              'Montra',
-              style: TextStyle(fontSize: 40, color: Colors.white),
-            ),
-            const SizedBox(height: 50),
-          ],
+          ),
         ),
       ),
     );

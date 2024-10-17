@@ -34,6 +34,7 @@ const String settingsIconPath = 'assets/icons/profile_icons/settings.svg';
 const String walletIconPath = 'assets/icons/profile_icons/wallet.svg';
 const String routeIconPath = 'assets/icons/profile_icons/route_icon.svg';
 const String arrowDown = 'assets/icons/profile_icons/arrow_down.svg';
+const String editNameIconPath = 'assets/icons/profile_icons/edit.png';
 
 /// App logo
 const String appLogo = 'assets/icons/app_logo/montra.png';
@@ -62,3 +63,5 @@ const String expenseRoundedIcon =
     'assets/icons/expense_income_icons/expense_rounded.svg';
 const String incomeRoundedIcon =
     'assets/icons/expense_income_icons/income_rounded.svg';
+
+const String trashIconPath = 'assets/icons/trash.svg';

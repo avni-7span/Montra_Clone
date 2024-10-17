@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:montra_clone/app/routes/guards/auth_guard.dart';
 import 'package:montra_clone/app/routes/router/router.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
+@AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
@@ -22,9 +22,11 @@ class AppRouter extends RootStackRouter {
         /// Bottom Navigation Bar
         AutoRoute(
           page: BottomNavigationBarRoute.page,
+          guards: [AuthGuard()],
           children: [
-            AutoRoute(page: HomeRoute.page, guards: [AuthGuard()]),
+            AutoRoute(page: HomeRoute.page),
             AutoRoute(page: TransactionRoute.page),
+            AutoRoute(page: EmptyRoute.page),
             AutoRoute(page: BudgetRoute.page),
             AutoRoute(page: ProfileRoute.page),
           ],
@@ -41,12 +43,22 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SettingRoute.page),
         AutoRoute(page: CurrencyRoute.page),
         AutoRoute(page: LanguageRoute.page),
+        AutoRoute(page: EditUserInfoRoute.page, path: '/:name'),
 
         /// SubRoutes of transaction route
         AutoRoute(page: FinancialReportRoute.page),
         AutoRoute(page: AnalysisRoute.page),
 
         /// SubRoutes of budget route
-        AutoRoute(page: CreateBudgetRoute.page),
+        AutoRoute(page: CreateBudgetRoute.page, path: '/:budgetModel'),
+        AutoRoute(
+          page: DetailBudgetRoute.page,
+          path: '/:budgetModel/:spentAmount',
+        ),
       ];
+}
+
+@RoutePage()
+class EmptyScreen extends AutoRouter {
+  const EmptyScreen({super.key});
 }

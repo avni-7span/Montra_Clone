@@ -75,6 +75,7 @@ class _ExpenseTrackerScreenState extends State<ExpenseTrackerScreen> {
           return showTheSnackBar(
             message: state.errorMessage ?? 'Something went wrong',
             context: context,
+            isBehaviourFloating: false,
           );
         } else if (state.status == ExpenseTrackerStateStatus.deleted) {
           await showDialog(
@@ -304,27 +305,36 @@ class _ContinueButton extends StatelessWidget {
     return BlocBuilder<ExpenseTrackerBloc, ExpenseTrackerState>(
       builder: (context, state) {
         return CustomElevatedButton(
-          buttonLabel: state.status == ExpenseTrackerStateStatus.loading ||
-                  state.status == ExpenseTrackerStateStatus.updateLoading
-              ? CircularProgressIndicator(
-                  color: AppColors.instance.light100,
-                )
-              : ButtonTitle(
-                  isPurple: true,
-                  buttonLabel: transactionModel == null ? 'Continue' : 'Update',
-                ),
+          buttonLabel: AbsorbPointer(
+            absorbing: state.status == ExpenseTrackerStateStatus.loading ||
+                    state.status == ExpenseTrackerStateStatus.updateLoading
+                ? true
+                : false,
+            child: state.status == ExpenseTrackerStateStatus.loading ||
+                    state.status == ExpenseTrackerStateStatus.updateLoading
+                ? CircularProgressIndicator(
+                    color: AppColors.instance.light100,
+                  )
+                : ButtonTitle(
+                    isPurple: true,
+                    buttonLabel:
+                        transactionModel == null ? 'Continue' : 'Update',
+                  ),
+          ),
           isPurple: true,
-          onPressed: () {
-            transactionModel == null
-                ? context
-                    .read<ExpenseTrackerBloc>()
-                    .add(AddTransactionToFireStoreEvent(isExpense: isExpense))
-                : context.read<ExpenseTrackerBloc>().add(
-                      UpdateTransactionDataEvent(
-                        transactionId: transactionModel!.transactionId,
-                      ),
-                    );
-          },
+          onPressed: state.status == ExpenseTrackerStateStatus.loading ||
+                  state.status == ExpenseTrackerStateStatus.updateLoading
+              ? () {}
+              : () {
+                  transactionModel == null
+                      ? context.read<ExpenseTrackerBloc>().add(
+                          AddTransactionToFireStoreEvent(isExpense: isExpense))
+                      : context.read<ExpenseTrackerBloc>().add(
+                            UpdateTransactionDataEvent(
+                              transactionId: transactionModel!.transactionId,
+                            ),
+                          );
+                },
         );
       },
     );

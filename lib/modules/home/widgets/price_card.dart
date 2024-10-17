@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 
 class PriceCard extends StatelessWidget {
@@ -7,21 +8,26 @@ class PriceCard extends StatelessWidget {
     required this.color,
     required this.label,
     required this.price,
-    required this.icon,
+    required this.iconPath,
   });
 
   final Color color;
   final String label;
   final String price;
-  final IconData icon;
+  final String iconPath;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.only(
+        top: 10,
+        right: 10,
+        left: 10,
+      ),
+      padding: const EdgeInsets.all(2),
       height: 80,
-      width: 164,
+      width: size.width / 2.4,
       decoration: BoxDecoration(
         color: color,
         borderRadius: const BorderRadius.all(
@@ -31,10 +37,10 @@ class PriceCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Icon(
-            icon,
-            color: AppColors.instance.light100,
-            size: 30,
+          SvgPicture.asset(
+            iconPath,
+            width: 48,
+            height: 48,
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -44,14 +50,14 @@ class PriceCard extends StatelessWidget {
                 label,
                 style: TextStyle(
                   color: AppColors.instance.light100,
-                  fontSize: 15,
+                  fontSize: 14,
                 ),
               ),
               Text(
                 price,
                 style: TextStyle(
                   color: AppColors.instance.light100,
-                  fontSize: 23,
+                  fontSize: 22,
                 ),
               ),
             ],

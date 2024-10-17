@@ -28,8 +28,7 @@ class CurrencyScreen extends StatelessWidget implements AutoRouteWrapper {
         title: const Text('Currency'),
         leading: IconButton(
           onPressed: () async {
-            await context.router.replaceAll([const SettingRoute()],
-                updateExistingRoutes: false);
+            context.maybePop();
           },
           icon: Icon(Icons.arrow_back, color: AppColors.instance.dark100),
         ),

@@ -22,6 +22,14 @@ packages:
     description: dart
     source: sdk
     version: "0.3.2"
+  accessibility_tools:
+    dependency: transitive
+    description:
+      name: accessibility_tools
+      sha256: ae082866ddc7d4b06d7344f20f551d71302c80070d1e6c5f112f1d09b98de95c
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.3"
   analyzer:
     dependency: transitive
     description:
@@ -122,10 +130,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: dd09dd4e2b078992f42aac7f1a622f01882a8492fef08486b27ddde929c19f04
+      sha256: "028819cfb90051c6b5440c7e574d1896f8037e3c96cf17aaeb054c9311cfbf4d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.12"
+    version: "2.4.13"
   build_runner_core:
     dependency: transitive
     description:
@@ -262,6 +270,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.7"
+  device_frame:
+    dependency: transitive
+    description:
+      name: device_frame
+      sha256: d031a06f5d6f4750009672db98a5aa1536aa4a231713852469ce394779a23d75
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   equatable:
     dependency: "direct main"
     description:
@@ -474,6 +490,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.4"
   frontend_server_client:
     dependency: transitive
     description:
@@ -586,6 +610,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.0"
+  inspector:
+    dependency: transitive
+    description:
+      name: inspector
+      sha256: "40ba0ac1c819c85139bfec9d1e283804581a8985c91f19d00e93212cf29226b1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   intl:
     dependency: "direct main"
     description:
@@ -842,6 +874,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  resizable_widget:
+    dependency: transitive
+    description:
+      name: resizable_widget
+      sha256: db2919754b93f386b9b3fb15e9f48f6c9d6d41f00a24397629133c99df86606a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1135,6 +1175,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  widgetbook:
+    dependency: "direct main"
+    description:
+      name: widgetbook
+      sha256: "4db3ab02c3159dd898b362c8681b9cdabda33caae3a9d13e3fc71231a485ad33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.9.0"
+  widgetbook_annotation:
+    dependency: "direct main"
+    description:
+      name: widgetbook_annotation
+      sha256: "08570e3568275c4c283cdf78409c125f86c96c9b4f94f0a390d6a163349e9934"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
+  widgetbook_generator:
+    dependency: "direct dev"
+    description:
+      name: widgetbook_generator
+      sha256: "5967de405c3e7e3d4ef56239c7b23f0affd69b181f7d041f8101f0fbdb9d4e2c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.9.0"
   xdg_directories:
     dependency: transitive
     description:

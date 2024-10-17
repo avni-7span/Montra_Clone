@@ -52,3 +52,22 @@ class LoadCategoryList extends BudgetEvent {
   @override
   List<Object?> get props => [];
 }
+
+class DeleteBudgetEvent extends BudgetEvent {
+  const DeleteBudgetEvent({required this.budgetID});
+  final String budgetID;
+
+  @override
+  List<Object?> get props => [budgetID];
+}
+
+class UpdateBudgetEvent extends BudgetEvent {
+  const UpdateBudgetEvent({
+    required this.budgetID,
+    required this.budgetAmount,
+  });
+  final String budgetID;
+  final double budgetAmount;
+  @override
+  List<Object?> get props => [budgetID, budgetID];
+}

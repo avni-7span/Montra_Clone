@@ -18,7 +18,7 @@ class IncomeExpenseContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height * (0.35),
+      height: MediaQuery.sizeOf(context).height * (0.4),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -37,7 +37,7 @@ class IncomeExpenseContainer extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,8 +64,8 @@ class IncomeExpenseContainer extends StatelessWidget {
               ),
               Text(
                 totalBudget >= 0
-                    ? '\u{20B9}${totalBudget.toString()}'
-                    : '- \u{20B9}${totalBudget.abs().toString()}',
+                    ? '\u{20B9}${totalBudget.toStringAsFixed(2)}'
+                    : '- \u{20B9}${totalBudget.abs().toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -75,16 +75,16 @@ class IncomeExpenseContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   PriceCard(
-                    icon: Icons.arrow_downward,
+                    iconPath: incomeIcon,
                     color: AppColors.instance.green100,
                     label: 'Income',
-                    price: '\u{20B9}${income.toString()}',
+                    price: '\u{20B9}${income.toStringAsFixed(1)}',
                   ),
                   PriceCard(
-                    icon: Icons.arrow_upward,
+                    iconPath: expenseIcon,
                     color: AppColors.instance.red100,
                     label: 'Expenses',
-                    price: '\u{20B9}${expense.toString()}',
+                    price: '\u{20B9}${expense.toStringAsFixed(1)}',
                   ),
                 ],
               ),

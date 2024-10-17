@@ -8,98 +8,63 @@ class UserInfoRow extends StatelessWidget {
     super.key,
     required this.userName,
     required this.onEditIconTap,
-    required this.onImageTap,
     required this.userEmail,
   });
 
   final String userName;
   final String userEmail;
   final VoidCallback onEditIconTap;
-  final VoidCallback onImageTap;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Column(
       children: [
-        UserImage(
-          onImageTap: onImageTap,
+        Image.asset(
+          appLogo,
+          height: 80,
+          width: 140,
         ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                userName,
-                style: TextStyle(
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userName,
+                    style: TextStyle(
+                      color: AppColors.instance.dark100,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    userEmail,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: AppColors.instance.dark25,
+                      fontSize: 15,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: IconButton(
+                onPressed: onEditIconTap,
+                icon: SvgPicture.asset(
+                  editIconPath,
                   color: AppColors.instance.dark100,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                userEmail,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: AppColors.instance.dark25,
-                  fontSize: 15,
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: IconButton(
-            onPressed: onEditIconTap,
-            icon: SvgPicture.asset(
-              editIconPath,
-              color: AppColors.instance.dark100,
-            ),
-          ),
-        )
       ],
-    );
-  }
-}
-
-class UserImage extends StatelessWidget {
-  const UserImage({
-    super.key,
-    required this.onImageTap,
-  });
-
-  final VoidCallback onImageTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onImageTap,
-      child: Container(
-        height: 100,
-        width: 100,
-        padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          color: AppColors.instance.primary,
-        ),
-        child: Container(
-          height: 100,
-          width: 100,
-          padding: const EdgeInsets.all(4),
-          margin: const EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: AppColors.instance.light100,
-          ),
-          child: CircleAvatar(
-            backgroundImage: const AssetImage(fakeUserImagePath),
-            backgroundColor: AppColors.instance.violet20,
-          ),
-        ),
-      ),
     );
   }
 }

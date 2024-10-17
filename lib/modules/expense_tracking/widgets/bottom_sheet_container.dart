@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montra_clone/app/app_colors.dart';
+import 'package:montra_clone/app/image_paths.dart';
 import 'package:montra_clone/core/widgets/decorated_line.dart';
 import 'package:montra_clone/modules/expense_tracking/widgets/trasaction_button.dart';
 
@@ -31,7 +32,7 @@ class BottomSheetContainer extends StatelessWidget {
               TransactionButton(
                 primaryColor: AppColors.instance.green40,
                 secondaryColor: AppColors.instance.green100,
-                icon: Icons.arrow_downward,
+                iconPath: incomeRoundedIcon,
                 onTap: () {
                   onIncomeTap();
                 },
@@ -39,7 +40,7 @@ class BottomSheetContainer extends StatelessWidget {
               TransactionButton(
                 primaryColor: AppColors.instance.red40,
                 secondaryColor: AppColors.instance.red100,
-                icon: Icons.arrow_upward,
+                iconPath: expenseRoundedIcon,
                 onTap: () {
                   onExpenseTap();
                 },

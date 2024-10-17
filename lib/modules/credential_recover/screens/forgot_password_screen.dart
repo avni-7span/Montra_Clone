@@ -32,8 +32,10 @@ class ForgotPasswordScreen extends StatelessWidget implements AutoRouteWrapper {
       listener: (context, state) {
         if (state.status == ResetPasswordStateStatus.failure) {
           return showTheSnackBar(
-              message: 'Something went wrong, Please Try again later',
-              context: context);
+            message: 'Something went wrong, Please Try again later',
+            context: context,
+            isBehaviourFloating: false,
+          );
         }
       },
       child: Scaffold(
@@ -110,11 +112,13 @@ class ContinueButton extends StatelessWidget {
                 )
               : const ButtonTitle(isPurple: true, buttonLabel: 'Continue'),
           isPurple: true,
-          onPressed: () {
-            context
-                .read<ResetPasswordBloc>()
-                .add(const SendResetPasswordEmailEvent());
-          },
+          onPressed: state.status == ResetPasswordStateStatus.loading
+              ? () {}
+              : () {
+                  context
+                      .read<ResetPasswordBloc>()
+                      .add(const SendResetPasswordEmailEvent());
+                },
         );
       },
     );

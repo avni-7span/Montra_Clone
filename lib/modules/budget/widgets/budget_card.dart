@@ -9,11 +9,15 @@ class BudgetCard extends StatelessWidget {
     required this.category,
     required this.spentAmount,
     required this.budgetAmount,
+    required this.onCardTap,
+    required this.alertLimit,
   });
 
   final String category;
   final double spentAmount;
   final double budgetAmount;
+  final VoidCallback onCardTap;
+  final double? alertLimit;
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +43,10 @@ class BudgetCard extends StatelessWidget {
                 label: getCategoryData(category).$1,
                 color: getCategoryData(category).$2,
               ),
-              Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.instance.green100,
+              IconButton(
+                onPressed: onCardTap,
+                icon: const Icon(Icons.arrow_forward_ios),
+                // color: AppColors.instance.green100,
               )
             ],
           ),
@@ -66,7 +71,11 @@ class BudgetCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'You have exceed the limit!',
+                  alertLimit == null
+                      ? 'You have exceed the 100% limit!'
+                      : alertLimit! < spentAmount
+                          ? 'You have exceed the $alertLimit% limit!'
+                          : 'You have exceed the 100% limit!',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: AppColors.instance.red100,

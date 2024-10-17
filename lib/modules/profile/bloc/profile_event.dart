@@ -17,3 +17,18 @@ class FetchUserDetailsEvent extends ProfileEvent {
   @override
   List<Object?> get props => [];
 }
+
+class NameFieldChangeEvent extends ProfileEvent {
+  const NameFieldChangeEvent({required this.name});
+
+  final String name;
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class UpdateNameEvent extends ProfileEvent {
+  const UpdateNameEvent();
+  @override
+  List<Object?> get props => [];
+}

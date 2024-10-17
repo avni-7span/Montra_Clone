@@ -42,12 +42,13 @@ class SignupScreen extends StatelessWidget implements AutoRouteWrapper {
           return showTheSnackBar(
             message: 'Please read and check the privacy policy',
             context: context,
+            isBehaviourFloating: false,
           );
         } else if (state.status == SignUpStateStatus.failure) {
           return showTheSnackBar(
-            message: state.error,
-            context: context,
-          );
+              message: state.error,
+              context: context,
+              isBehaviourFloating: false);
         } else if (state.status == SignUpStateStatus.success) {
           context.router.replace(const VerificationInfoRoute());
         } else if (state.status == SignUpStateStatus.signupWithGoogleDone) {
@@ -226,9 +227,11 @@ class GoogleSignUp extends StatelessWidget {
     return BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return SignUpWithGoogle(
-          onPressed: () {
-            context.read<SignupBloc>().add(const SignUpWithGoogleEvent());
-          },
+          onPressed: state.status == SignUpStateStatus.signupWithGoogleLoading
+              ? () {}
+              : () {
+                  context.read<SignupBloc>().add(const SignUpWithGoogleEvent());
+                },
           buttonLabel: state.status == SignUpStateStatus.signupWithGoogleLoading
               ? const Center(child: CircularProgressIndicator())
               : const GoogleButtonLabel(),

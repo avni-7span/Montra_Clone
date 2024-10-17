@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montra_clone/app/app_colors.dart';
 
 BoxDecoration boxDecoration({required Color color, required double radius}) {
@@ -13,13 +14,13 @@ class TransactionButton extends StatelessWidget {
     super.key,
     required this.primaryColor,
     required this.secondaryColor,
-    required this.icon,
+    required this.iconPath,
     required this.onTap,
   });
 
   final Color primaryColor;
   final Color secondaryColor;
-  final IconData icon;
+  final String iconPath;
   final VoidCallback onTap;
 
   @override
@@ -28,8 +29,8 @@ class TransactionButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(15),
-        height: 100,
-        width: 120,
+        height: 91,
+        width: 107,
         decoration: boxDecoration(
           color: primaryColor,
           radius: 20,
@@ -41,10 +42,10 @@ class TransactionButton extends StatelessWidget {
             color: secondaryColor,
             radius: 50,
           ),
-          child: Icon(
-            icon,
-            color: AppColors.instance.light100,
-            size: 40,
+          child: SvgPicture.asset(
+            iconPath,
+            height: 56,
+            width: 56,
           ),
         ),
       ),

@@ -20,6 +20,8 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
     on<LoadCategoryList>(_loadCategoryList);
     on<ContinueButtonTapEvent>(_addDataToFireStore);
     on<LoadBudgetDataFromFireStoreEvent>(_loadData);
+    on<DeleteBudgetEvent>(_deleteBudget);
+    on<UpdateBudgetEvent>(_updateBudget);
   }
 
   void _setCategory(
@@ -83,6 +85,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
               'category': state.category,
               'budgetAmount': double.parse(state.amount.value),
               'alertLimit': state.sliderValue,
+              'shouldReceiveAlert': state.shouldReceiveAlert,
             });
             emit(state.copyWith(status: BudgetStateStatus.success));
           } else {
@@ -91,6 +94,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
               'createdAt': DateTime.now().millisecondsSinceEpoch,
               'category': state.category,
               'budgetAmount': double.parse(state.amount.value),
+              'shouldReceiveAlert': state.shouldReceiveAlert,
             });
             emit(state.copyWith(status: BudgetStateStatus.success));
           }
@@ -102,7 +106,6 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
         }
       }
     } catch (e) {
-      print('error aavi :$e');
       emit(state.copyWith(
           status: BudgetStateStatus.failure,
           errorMessage: 'Something went wrong,Please try again later'));
@@ -118,9 +121,12 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
         BudgetDataModel(
           createdAt: element.data()['createdAt'],
           category: element.data()['category'],
-          budgetAmount: element.data()['budgetAmount'],
+          budgetAmount: (element.data()['budgetAmount']).toDouble(),
           budgetId: element.id,
-          alertLimit: element.data()['alertLimit'],
+          alertLimit: (element.data()['shouldReceiveAlert'] == false)
+              ? null
+              : (element.data()['alertLimit']).toDouble(),
+          shouldReceiveAlert: element.data()['shouldReceiveAlert'],
         ),
       );
     }
@@ -197,6 +203,63 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
       emit(state.copyWith(
           status: BudgetStateStatus.failure,
           errorMessage: 'Could not load list data'));
+    }
+  }
+
+  Future<void> _deleteBudget(
+    DeleteBudgetEvent event,
+    Emitter<BudgetState> emit,
+  ) async {
+    try {
+      final ref =
+          await FireStoreQueries.instance.getBudgetCollectionReference();
+      await ref.doc(event.budgetID).delete();
+      emit(state.copyWith(status: BudgetStateStatus.deletedSuccessfully));
+    } catch (e) {
+      emit(state.copyWith(
+          status: BudgetStateStatus.failure,
+          errorMessage: 'Could not delete budget! Please try again.'));
+    }
+  }
+
+  Future<void> _updateBudget(
+    UpdateBudgetEvent event,
+    Emitter<BudgetState> emit,
+  ) async {
+    try {
+      final amount = EmptyFieldValidator.dirty(state.amount.value == ''
+          ? event.budgetAmount.toString()
+          : state.amount.value);
+      emit(
+        state.copyWith(
+          status: BudgetStateStatus.loading,
+          amount: amount,
+          isValid: Formz.validate(
+            [amount],
+          ),
+        ),
+      );
+      if (state.isValid) {
+        final ref =
+            await FireStoreQueries.instance.getBudgetCollectionReference();
+        await ref.doc(event.budgetID).update({
+          'budgetAmount': double.parse(state.amount.value),
+          'shouldReceiveAlert': state.shouldReceiveAlert,
+          'alertLimit':
+              !state.shouldReceiveAlert ? null : state.sliderValue ?? 80,
+        });
+        emit(state.copyWith(status: BudgetStateStatus.updatedSuccessfully));
+      } else {
+        emit(state.copyWith(
+          status: BudgetStateStatus.failure,
+          errorMessage: 'Something went wrong.',
+        ));
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        status: BudgetStateStatus.failure,
+        errorMessage: 'Could not update budget! Please try again.',
+      ));
     }
   }
 }

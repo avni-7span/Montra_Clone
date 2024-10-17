@@ -18,7 +18,7 @@ class FilterRow extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, bottom: 8, top: 8),
+      margin: const EdgeInsets.only(bottom: 8, top: 8),
       padding: const EdgeInsets.only(left: 8, right: 8),
       height: 40,
       width: double.infinity,

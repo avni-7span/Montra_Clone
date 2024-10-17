@@ -7,7 +7,7 @@ import 'package:montra_clone/core/repository/authentication_repository.dart';
 import 'package:montra_clone/core/utils/custom_snackbar.dart';
 import 'package:montra_clone/modules/profile/bloc/profile_bloc.dart';
 import 'package:montra_clone/modules/profile/widgets/custom_container.dart';
-import 'package:montra_clone/modules/profile/widgets/logout_alert_message.dart';
+import 'package:montra_clone/core/widgets/alert_message_container.dart';
 import 'package:montra_clone/modules/profile/widgets/user_info_row.dart';
 
 @RoutePage()
@@ -38,7 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isScrollControlled: true,
       isDismissible: true,
       builder: (context) {
-        return LogoutAlertMessage(
+        return AlertMessageContainer(
+          title: 'Logout?',
+          subTitle: 'Are you sure you want to logout?',
           onDecoratedLineTap: () => bottomSheetContext.maybePop(),
           onNoTap: () => bottomSheetContext.maybePop(),
           onYesTap: () =>
@@ -58,6 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return showTheSnackBar(
             message: 'Could not logout! Please try again later',
             context: context,
+            isBehaviourFloating: true,
           );
         }
       },
@@ -74,8 +77,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return UserInfoRow(
                     userName: state.userName ?? 'Unknown',
                     userEmail: state.userEmail ?? '',
-                    onEditIconTap: () {},
-                    onImageTap: () {},
+                    onEditIconTap: () async {
+                      await context.pushRoute(
+                        EditUserInfoRoute(
+                          name: state.userName ?? 'Unknown',
+                        ),
+                      );
+                    },
                   );
                 },
               ),

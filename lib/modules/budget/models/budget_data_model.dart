@@ -7,6 +7,7 @@ class BudgetDataModel extends Equatable {
     required this.budgetAmount,
     required this.budgetId,
     required this.alertLimit,
+    required this.shouldReceiveAlert,
   });
 
   final int createdAt;
@@ -14,6 +15,7 @@ class BudgetDataModel extends Equatable {
   final double budgetAmount;
   final String budgetId;
   final double? alertLimit;
+  final bool shouldReceiveAlert;
 
   @override
   List<Object?> get props => [
@@ -22,5 +24,6 @@ class BudgetDataModel extends Equatable {
         budgetAmount,
         budgetId,
         alertLimit,
+        shouldReceiveAlert,
       ];
 }

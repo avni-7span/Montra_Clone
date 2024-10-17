@@ -56,9 +56,9 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) async {
         if (state.status == LoginStateStatus.failure) {
           return showTheSnackBar(
-            message: state.error,
-            context: context,
-          );
+              message: state.error,
+              context: context,
+              isBehaviourFloating: false);
         } else if (state.status == LoginStateStatus.isNotVerified) {
           await showUserVerificationAlertDialogue();
         } else if (state.status == LoginStateStatus.success) {
@@ -67,16 +67,13 @@ class _LoginScreenState extends State<LoginScreen> {
           return showTheSnackBar(
             message: 'We have sent you a verification email,Please check inbox',
             context: context,
+            isBehaviourFloating: false,
           );
         }
       },
       child: Scaffold(
         backgroundColor: AppColors.instance.light100,
-        // appBar: AppBar(
-        //   backgroundColor: AppColors.instance.light100,
-        //   centerTitle: true,
-        //   title: const Text('Login'),
-        // ),
+        extendBody: true,
         body: Center(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -180,9 +177,13 @@ class _LoginButton extends StatelessWidget {
                   buttonLabel: 'Login',
                 ),
           isPurple: true,
-          onPressed: () {
-            context.read<LoginBloc>().add(const LoginButtonPressedEvent());
-          },
+          onPressed: state.status == LoginStateStatus.loading
+              ? () {}
+              : () {
+                  context
+                      .read<LoginBloc>()
+                      .add(const LoginButtonPressedEvent());
+                },
         );
       },
     );

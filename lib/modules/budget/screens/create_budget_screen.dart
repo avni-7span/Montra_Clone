@@ -8,6 +8,7 @@ import 'package:montra_clone/core/widgets/amount_text_field.dart';
 import 'package:montra_clone/core/widgets/button_title.dart';
 import 'package:montra_clone/core/widgets/custom_elevated_button.dart';
 import 'package:montra_clone/modules/budget/bloc/budget_bloc.dart';
+import 'package:montra_clone/modules/budget/models/budget_data_model.dart';
 import 'package:montra_clone/modules/budget/widgets/custom_app_bar.dart';
 import 'package:montra_clone/modules/budget/widgets/slider_widget.dart';
 import 'package:montra_clone/modules/budget/widgets/switch_list_tile.dart';
@@ -16,30 +17,60 @@ import 'package:montra_clone/modules/expense_tracking/widgets/success_dialogue.d
 
 @RoutePage()
 class CreateBudgetScreen extends StatelessWidget implements AutoRouteWrapper {
-  const CreateBudgetScreen({super.key});
+  const CreateBudgetScreen({
+    super.key,
+    @PathParam() this.budgetModel,
+  });
+
+  final dynamic budgetModel;
 
   @override
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider(
-      create: (context) => BudgetBloc()..add(LoadCategoryList()),
+      create: (context) {
+        final budgetData = budgetModel as BudgetDataModel?;
+        final alertLimit = budgetData != null ? budgetData.alertLimit : 20.0;
+        final shouldReceiveAlert =
+            budgetData == null ? false : budgetData.shouldReceiveAlert;
+        return BudgetBloc()
+          ..add(LoadCategoryList())
+          ..add(SliderChangeEvent(sliderValue: alertLimit))
+          ..add(ReceiveAlertSwitchChangeEvent(
+            shouldReceiveAlert: shouldReceiveAlert,
+          ));
+      },
       child: this,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final budgetData = budgetModel as BudgetDataModel?;
     return BlocListener<BudgetBloc, BudgetState>(
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) async {
         if (state.status == BudgetStateStatus.failure) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          showTheSnackBar(message: state.errorMessage, context: context);
+          showTheSnackBar(
+            message: state.errorMessage,
+            context: context,
+            isBehaviourFloating: false,
+          );
         } else if (state.status == BudgetStateStatus.success) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           await showDialog(
             context: context,
             builder: (context) => SuccessDialogue(
               successMessage: 'Budget created successfully',
+              onOkTap: () => context.router.replaceAll([const BudgetRoute()],
+                  updateExistingRoutes: false),
+            ),
+          );
+        } else if (state.status == BudgetStateStatus.updatedSuccessfully) {
+          await showDialog(
+            context: context,
+            builder: (context) => SuccessDialogue(
+              successMessage: 'Budget updated successfully',
               onOkTap: () => context.router.replaceAll([const BudgetRoute()],
                   updateExistingRoutes: false),
             ),
@@ -65,7 +96,9 @@ class CreateBudgetScreen extends StatelessWidget implements AutoRouteWrapper {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const _EnterAmountText(),
-            const _AmountTextField(),
+            _AmountTextField(
+              budgetDataModel: budgetData,
+            ),
             Flexible(
               child: Container(
                 decoration: BoxDecoration(
@@ -84,12 +117,21 @@ class CreateBudgetScreen extends StatelessWidget implements AutoRouteWrapper {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const SizedBox(height: 25),
-                            const _CategoryTextField(),
-                            const _SwitchListTile(),
+                            _CategoryDropDownField(
+                              budgetDataModel: budgetData,
+                            ),
+                            _SwitchListTile(
+                              budgetDataModel: budgetData,
+                            ),
                             const SizedBox(height: 20),
-                            if (state.shouldReceiveAlert) const ShowSlider(),
+                            if (state.shouldReceiveAlert)
+                              ShowSlider(
+                                budgetDataModel: budgetData,
+                              ),
                             const SizedBox(height: 20),
-                            const _ContinueButton(),
+                            _ContinueButton(
+                              budgetDataModel: budgetData,
+                            ),
                             const SizedBox(height: 25),
                           ],
                         ),
@@ -126,14 +168,20 @@ class _EnterAmountText extends StatelessWidget {
 }
 
 class _AmountTextField extends StatelessWidget {
-  const _AmountTextField({super.key});
+  const _AmountTextField({
+    super.key,
+    required this.budgetDataModel,
+  });
+
+  final BudgetDataModel? budgetDataModel;
 
   @override
   Widget build(BuildContext context) {
+    final initialValue = budgetDataModel?.budgetAmount.toStringAsFixed(0);
     return BlocBuilder<BudgetBloc, BudgetState>(
       builder: (context, state) {
         return AmountTextField(
-          initialValue: null,
+          initialValue: initialValue,
           onChanged: (value) {
             context.read<BudgetBloc>().add(
                   AmountTextFieldChangeEvent(
@@ -155,20 +203,32 @@ class _AmountTextField extends StatelessWidget {
   }
 }
 
-class _CategoryTextField extends StatelessWidget {
-  const _CategoryTextField({super.key});
+class _CategoryDropDownField extends StatelessWidget {
+  const _CategoryDropDownField({
+    super.key,
+    required this.budgetDataModel,
+  });
+
+  final BudgetDataModel? budgetDataModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BudgetBloc, BudgetState>(
       builder: (context, state) {
-        return CustomDropDownField(
-          onChanged: (value) {
-            context.read<BudgetBloc>().add(SetCategoryEvent(category: value));
-          },
-          options: state.categoryList,
-          selectedValue: state.category,
-          labelText: 'Choose Category',
+        return AbsorbPointer(
+          absorbing: budgetDataModel == null ? false : true,
+          child: CustomDropDownField(
+            onChanged: (value) {
+              context.read<BudgetBloc>().add(SetCategoryEvent(category: value));
+            },
+            options: budgetDataModel == null
+                ? state.categoryList
+                : [budgetDataModel!.category],
+            selectedValue: budgetDataModel == null
+                ? state.category
+                : budgetDataModel!.category,
+            labelText: 'Choose Category',
+          ),
         );
       },
     );
@@ -176,7 +236,12 @@ class _CategoryTextField extends StatelessWidget {
 }
 
 class _SwitchListTile extends StatelessWidget {
-  const _SwitchListTile({super.key});
+  const _SwitchListTile({
+    super.key,
+    required this.budgetDataModel,
+  });
+
+  final BudgetDataModel? budgetDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +263,12 @@ class _SwitchListTile extends StatelessWidget {
 }
 
 class ShowSlider extends StatelessWidget {
-  const ShowSlider({super.key});
+  const ShowSlider({
+    super.key,
+    required this.budgetDataModel,
+  });
+
+  final BudgetDataModel? budgetDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +289,12 @@ class ShowSlider extends StatelessWidget {
 }
 
 class _ContinueButton extends StatelessWidget {
-  const _ContinueButton({super.key});
+  const _ContinueButton({
+    super.key,
+    required this.budgetDataModel,
+  });
+
+  final BudgetDataModel? budgetDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -230,14 +305,19 @@ class _ContinueButton extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : const ButtonTitle(
+              : ButtonTitle(
                   isPurple: true,
-                  buttonLabel: 'Continue',
+                  buttonLabel: budgetDataModel == null ? 'Continue' : 'Update',
                 ),
           isPurple: true,
           onPressed: () => state.status == BudgetStateStatus.loading
               ? () {}
-              : context.read<BudgetBloc>().add(ContinueButtonTapEvent()),
+              : budgetDataModel == null
+                  ? context.read<BudgetBloc>().add(ContinueButtonTapEvent())
+                  : context.read<BudgetBloc>().add(UpdateBudgetEvent(
+                        budgetID: budgetDataModel!.budgetId,
+                        budgetAmount: budgetDataModel!.budgetAmount,
+                      )),
         );
       },
     );

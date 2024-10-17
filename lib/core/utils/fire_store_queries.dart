@@ -65,7 +65,7 @@ class FireStoreQueries {
       getThisWeekData() async {
     final now = DateTime.now();
     final startOfWeek =
-        now.subtract(Duration(days: now.weekday - 1)); // gives monday
+        now.subtract(Duration(days: now.weekday)); // gives monday
     // final startOfWeek = now.subtract(
     //     Duration(days: now.weekday == 7 ? 6 : now.weekday - 1)); // gives monday
     final endOfWeek = startOfWeek.add(const Duration(days: 7));

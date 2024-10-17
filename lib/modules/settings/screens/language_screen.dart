@@ -31,8 +31,7 @@ class LanguageScreen extends StatelessWidget implements AutoRouteWrapper {
         title: const Text('Language'),
         leading: IconButton(
           onPressed: () async {
-            await context.router.replaceAll([const SettingRoute()],
-                updateExistingRoutes: false);
+            await context.maybePop();
           },
           icon: Icon(Icons.arrow_back, color: AppColors.instance.dark100),
         ),

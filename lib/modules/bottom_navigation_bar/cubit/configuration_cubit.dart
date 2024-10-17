@@ -22,4 +22,8 @@ class ConfigurationCubit extends Cubit<ConfigurationState> {
       emit(state.copyWith(status: ApiStatus.failure));
     }
   }
+
+  void setCurrentIndex(int index) {
+    emit(state.copyWith(currentIndex: index));
+  }
 }

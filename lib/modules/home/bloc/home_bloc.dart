@@ -157,7 +157,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(state.copyWith(status: HomeStateStatus.transactionDataLoading));
       final querySnapshot = await FireStoreQueries.instance.getThisWeekData();
-      print('query snapshot : $querySnapshot');
       final list = querySnapshot
           .map(
             (docSnapshot) => TransactionModel.fromFireStore(
@@ -165,12 +164,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             ),
           )
           .toList();
-      print('list : $list');
       list.sort(
         (a, b) => a.createdAt.compareTo(b.createdAt),
       );
       final dataList = list.reversed.toList();
-      print('reversed list : $dataList');
       emit(state.copyWith(
           status: HomeStateStatus.success, transactionList: dataList));
     } catch (e) {

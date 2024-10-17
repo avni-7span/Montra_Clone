@@ -15,11 +15,12 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return isSelected
         ? Container(
-            width: 75,
-            padding:
-                const EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 10),
+            width: 90,
+            height: 40,
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               color: AppColors.instance.yellow20,
               borderRadius: const BorderRadius.all(
@@ -38,10 +39,16 @@ class TextWidget extends StatelessWidget {
           )
         : GestureDetector(
             onTap: onTap,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: AppColors.instance.dark25,
+            child: SizedBox(
+              width: 90,
+              height: 34,
+              child: Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: AppColors.instance.dark25,
+                  ),
+                ),
               ),
             ),
           );

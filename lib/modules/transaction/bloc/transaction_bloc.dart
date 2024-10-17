@@ -189,9 +189,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
           } else if (state.sortBy == 'Oldest') {
             emit(state.copyWith(status: TransactionStateStatus.loading));
             final map = getDataGroupedByDates(docList);
-            print('straight oldest map $map');
             final reversedMap = getReversedMap(mapToReverse: map);
-            print('reversed oldest map : $reversedMap');
             emit(
               state.copyWith(
                 status: TransactionStateStatus.success,
@@ -226,7 +224,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         }
       }
     } catch (e) {
-      print('error aavi chhe $e');
       emit(
         state.copyWith(
           status: TransactionStateStatus.failure,

@@ -1,6 +1,13 @@
 part of 'budget_bloc.dart';
 
-enum BudgetStateStatus { initial, loading, success, failure }
+enum BudgetStateStatus {
+  initial,
+  loading,
+  success,
+  failure,
+  deletedSuccessfully,
+  updatedSuccessfully
+}
 
 class BudgetState extends Equatable {
   const BudgetState({
@@ -11,7 +18,6 @@ class BudgetState extends Equatable {
     this.amount = const EmptyFieldValidator.pure(),
     this.isValid = false,
     this.errorMessage = '',
-    // this.budgetCardModel = const [],
     this.budgetDataModelList = const [],
     this.categoryList = const [],
     this.spentAmountMap = const {},
@@ -25,7 +31,6 @@ class BudgetState extends Equatable {
   final bool isValid;
   final String errorMessage;
   final List<BudgetDataModel> budgetDataModelList;
-  // final List<BudgetCardModel> budgetCardModel;
   final List<String> categoryList;
   final Map<String, double> spentAmountMap;
 
@@ -38,7 +43,6 @@ class BudgetState extends Equatable {
         amount,
         isValid,
         errorMessage,
-        // budgetCardModel,
         budgetDataModelList,
         categoryList,
         spentAmountMap,

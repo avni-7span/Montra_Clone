@@ -137,7 +137,6 @@ class ExpenseTrackerBloc
               .doc(docId)
               .update({
             'category': state.category,
-            'createdAt': DateTime.now().millisecondsSinceEpoch,
             'description': state.description.value,
             'transactionAmount': state.transactionAmount.value,
           });
