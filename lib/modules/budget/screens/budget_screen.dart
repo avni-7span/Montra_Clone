@@ -48,89 +48,85 @@ class _BudgetScreenState extends State<BudgetScreen> {
               isBehaviourFloating: true);
         }
       },
-      child: Scaffold(
-        extendBody: true,
-        backgroundColor: AppColors.instance.primary,
-        body: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              const _AppBarWidget(),
-              const SizedBox(height: 10),
-              BlocBuilder<BudgetBloc, BudgetState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      decoration: BoxDecoration(
-                        color: AppColors.instance.light40,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
-                      ),
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        shrinkWrap: true,
-                        children: [
-                          if (state.status == BudgetStateStatus.loading) ...[
-                            const Spacer(),
-                            const Center(child: CircularProgressIndicator()),
-                            const Spacer()
-                          ] else if (state.status ==
-                              BudgetStateStatus.success) ...[
-                            if (state.budgetDataModelList.isEmpty) ...[
-                              const Spacer(),
-                              Center(
-                                child: Text(
-                                  createBudget,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: AppColors.instance.dark25,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                            ] else
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ScrollPhysics(),
-                                itemCount: state.budgetDataModelList.length,
-                                itemBuilder: (context, index) => BudgetCard(
-                                  category:
-                                      state.budgetDataModelList[index].category,
-                                  spentAmount: state.spentAmountMap[state
-                                          .budgetDataModelList[index]
-                                          .category] ??
-                                      0.0,
-                                  budgetAmount: state
-                                      .budgetDataModelList[index].budgetAmount,
-                                  alertLimit: state
-                                      .budgetDataModelList[index].alertLimit,
-                                  onCardTap: () {
-                                    context.pushRoute(
-                                      DetailBudgetRoute(
-                                        budgetModel:
-                                            state.budgetDataModelList[index],
-                                        spentAmount: state.spentAmountMap[state
-                                                .budgetDataModelList[index]
-                                                .category] ??
-                                            0.0,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                          ],
-                        ],
+      child: Container(
+        color: AppColors.instance.primary,
+        child: Column(
+          children: [
+            const SizedBox(height: 100),
+            const _AppBarWidget(),
+            const SizedBox(height: 10),
+            BlocBuilder<BudgetBloc, BudgetState>(
+              builder: (context, state) {
+                return Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      color: AppColors.instance.light40,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
                       ),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shrinkWrap: true,
+                      children: [
+                        if (state.status == BudgetStateStatus.loading) ...[
+                          const Spacer(),
+                          const Center(child: CircularProgressIndicator()),
+                          const Spacer()
+                        ] else if (state.status ==
+                            BudgetStateStatus.success) ...[
+                          if (state.budgetDataModelList.isEmpty) ...[
+                            const Spacer(),
+                            Center(
+                              child: Text(
+                                createBudget,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: AppColors.instance.dark25,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                          ] else
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ScrollPhysics(),
+                              itemCount: state.budgetDataModelList.length,
+                              itemBuilder: (context, index) => BudgetCard(
+                                category:
+                                    state.budgetDataModelList[index].category,
+                                spentAmount: state.spentAmountMap[state
+                                        .budgetDataModelList[index].category] ??
+                                    0.0,
+                                budgetAmount: state
+                                    .budgetDataModelList[index].budgetAmount,
+                                alertLimit:
+                                    state.budgetDataModelList[index].alertLimit,
+                                onCardTap: () {
+                                  context.pushRoute(
+                                    DetailBudgetRoute(
+                                      budgetModel:
+                                          state.budgetDataModelList[index],
+                                      spentAmount: state.spentAmountMap[state
+                                              .budgetDataModelList[index]
+                                              .category] ??
+                                          0.0,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                        ],
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

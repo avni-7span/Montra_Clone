@@ -59,6 +59,8 @@ dependencies:
   skeletonizer: ^1.4.2
   widgetbook_annotation: ^3.2.0
   widgetbook: ^3.9.0
+  circle_nav_bar: ^2.1.1
+  stylish_bottom_bar: ^1.1.0
 
 
 dev_dependencies:

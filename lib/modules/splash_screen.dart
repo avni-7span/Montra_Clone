@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<double> animation;
+  bool shouldShowText = false;
 
   @override
   void initState() {
@@ -28,17 +29,24 @@ class _SplashScreenState extends State<SplashScreen>
   void setAnimation() {
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
     );
     animation = Tween<double>(
       begin: 0,
       end: 1.5,
     ).animate(animationController);
-    animationController.forward();
+    animationController.forward().then(
+      (_) {
+        setState(() {
+          shouldShowText = true;
+        });
+        Future.delayed(const Duration(seconds: 2));
+      },
+    );
   }
 
   Future<void> navigateToAppropriateRoute() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 4));
     final prefs = await SharedPreferences.getInstance();
     bool isOpenedFirstTime = prefs.getBool('isOpenedFirstTime') ?? true;
     if (isOpenedFirstTime) {
@@ -57,17 +65,37 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.instance.violet80,
-      body: Center(
-        child: AnimatedBuilder(
-          animation: animation,
-          builder: (context, child) => Transform.scale(
-            scale: animation.value,
-            child: Image.asset(
-              appIcon,
-              height: 100,
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: AnimatedBuilder(
+              animation: animation,
+              builder: (context, child) => Transform.scale(
+                scale: animation.value,
+                child: Image.asset(
+                  appIcon,
+                  height: 100,
+                ),
+              ),
             ),
           ),
-        ),
+          if (shouldShowText)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: Text(
+                  'Montra',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 40,
+                    color: AppColors.instance.light100,
+                  ),
+                ),
+              ),
+            )
+        ],
       ),
     );
   }
