@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:montra_clone/app/app_colors.dart';
 
 BoxDecoration boxDecoration({required Color color, required double radius}) {
   return BoxDecoration(

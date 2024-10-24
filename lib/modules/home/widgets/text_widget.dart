@@ -15,7 +15,6 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return isSelected
         ? Container(
             width: 90,
